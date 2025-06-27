@@ -12,7 +12,7 @@
 			"options": {
 				"target": "node",
 				"compiler": "tsc",
-				"outputPath": "dist/apps",
+				"outputPath": "dist/apps/gauzy-mcp-server",
 				"main": "apps/gauzy-mcp-server/src/index.ts",
 				"tsConfig": "apps/gauzy-mcp-server/tsconfig.app.json",
 				"assets": ["apps/gauzy-mcp-server/src/assets"],
