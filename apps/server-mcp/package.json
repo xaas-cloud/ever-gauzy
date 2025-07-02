@@ -1,0 +1,50 @@
+{
+	"name": "@gauzy/server-mcp",
+	"version": "0.1.0",
+	"description": "Ever Gauzy MCP Server - A Model Context Protocol server following the Plane MCP pattern, providing AI assistants with access to Gauzy's time tracking, project, and employee management features",
+	"type": "module",
+	"author": {
+		"name": "Ever Co. LTD",
+		"email": "ever@ever.co",
+		"url": "https://ever.co"
+	},
+	"homepage": "https://gauzy.co",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ever-co/ever-gauzy.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ever-co/ever-gauzy/issues"
+	},
+	"license": "AGPL-3.0",
+	"private": true,
+	"main": "build/src/index.js",
+	"scripts": {
+		"build": "rm -rf build && tsc && chmod 755 build/src/index.js",
+		"start": "yarn nx electron server-mcp",
+		"start:dev": "yarn nx electron-dev server-mcp",
+		"start:mcp": "yarn nx serve server-mcp",
+		"start:mcp-test": "yarn nx serve-mcp server-mcp",
+		"dev": "yarn nx serve server-mcp:development",
+		"test": "yarn nx test server-mcp",
+		"lint": "yarn nx lint server-mcp"
+	},
+	"dependencies": {
+		"@electron/remote": "^2.0.8",
+		"@modelcontextprotocol/sdk": "^1.13.1",
+		"axios": "^1.7.0",
+		"dotenv": "^16.4.5",
+		"electron-log": "^4.4.8",
+		"electron-store": "^8.1.0",
+		"electron-updater": "^6.1.7",
+		"zod": "^3.25.67"
+	},
+	"devDependencies": {
+		"@electron/rebuild": "^3.2.10",
+		"@types/node": "^22.14.0",
+		"electron": "^30.0.1",
+		"electron-builder": "^24.13.3",
+		"rimraf": "^3.0.2",
+		"typescript": "^5.8.3"
+	}
+}
