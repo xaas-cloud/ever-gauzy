@@ -7,7 +7,6 @@ import { registerTaskTools } from '../tools/tasks.js';
 import { registerEmployeeTools } from '../tools/employees.js';
 import { registerTestTools } from '../tools/test-connection.js';
 import log from 'electron-log';
-import { fileURLToPath } from 'url';
 
 /**
  * Creates and configures the Gauzy MCP Server
@@ -52,10 +51,10 @@ export function createStandaloneMcpServer() {
 // Check if this file is being run directly
 function isMainModule() {
 	try {
-		// Convert import.meta.url to file path and compare with process.argv[1]
-		const currentFilePath = fileURLToPath(import.meta.url);
-		const mainModulePath = process.argv[1];
-		return currentFilePath === mainModulePath;
+		// In ES modules, we need to use import.meta.url to check if this is the main module
+		const url = new URL(import.meta.url);
+		const mainModuleUrl = new URL(process.argv[1], 'file://');
+		return url.pathname === mainModuleUrl.pathname;
 	} catch (error) {
 		// Fallback: check if process.argv[1] ends with this filename
 		return process.argv[1]?.endsWith('mcp-server.js') || process.argv[1]?.endsWith('mcp-server.ts');

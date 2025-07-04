@@ -10,13 +10,9 @@
 			"options": {
 				"main": "apps/server-mcp/src/index.ts",
 				"outputPath": "apps/server-mcp/build",
-				"tsConfig": "apps/server-mcp/tsconfig.app.json",
-				"assets": [
-					"apps/server-mcp/src/favicon.ico",
-					"apps/server-mcp/package.json"
-				],
+				"tsConfig": "apps/server-mcp/tsconfig.mcp.json",
 				"generatePackageJson": false
-			},
+				},
 			"configurations": {
 				"production": {
 					"fileReplacements": [
@@ -40,8 +36,8 @@
 			"outputs": ["{options.outputPath}"],
 			"options": {
 				"main": "apps/server-mcp/src/electron-main.ts",
-				"outputPath": "apps/server-mcp/build",
-				"tsConfig": "apps/server-mcp/tsconfig.app.json",
+				"outputPath": "dist/apps/server-mcp",
+				"tsConfig": "apps/server-mcp/tsconfig.electron.json",
 				"assets": [
 					"apps/server-mcp/src/favicon.ico",
 					"apps/server-mcp/package.json",
@@ -81,7 +77,7 @@
 				"development": {
 					"buildTarget": "server-mcp:build:development"
 				}
-			},
+				},
 			"defaultConfiguration": "development"
 		},
 		"serve-mcp": {
@@ -102,6 +98,12 @@
 		"electron": {
 			"executor": "@nx/js:node",
 			"dependsOn": ["build-electron"],
+			"options": {
+				"buildTarget": "server-mcp:build-electron",
+				"runtimeArgs": [],
+				"args": [],
+				"inspect": false
+			},
 			"configurations": {
 				"production": {
 					"buildTarget": "server-mcp:build-electron:production"
@@ -116,7 +118,9 @@
 			"executor": "@nx/js:node",
 			"dependsOn": ["build-electron"],
 			"options": {
-				"watch": true
+				"buildTarget": "server-mcp:build-electron",
+				"watch": true,
+				"inspect": false
 			},
 			"configurations": {
 				"production": {
@@ -124,7 +128,7 @@
 				},
 				"development": {
 					"buildTarget": "server-mcp:build-electron:development"
-				}
+			}
 			},
 			"defaultConfiguration": "development"
 		},

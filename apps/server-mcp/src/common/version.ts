@@ -1,7 +1,6 @@
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 /**
  * @description
@@ -23,17 +22,37 @@ import { dirname } from 'path';
  */
 function getVersion(): string {
 	try {
-		// Get the current directory for ES modules
+		// In ES modules, we need to get __dirname equivalent
 		const __filename = fileURLToPath(import.meta.url);
 		const __dirname = dirname(__filename);
 
-		// Read package.json from the build directory (copied during build)
-		// Path from build/src/common/version.js to build/package.json
-		const packageJsonPath = join(__dirname, '../../../package.json');
-		const packageJsonContent = readFileSync(packageJsonPath, 'utf8');
-		const packageJson = JSON.parse(packageJsonContent);
+		// Try multiple possible paths for package.json
+		const possiblePaths = [
+			// When running from dist/apps/server-mcp/src/common/version.js
+			join(__dirname, '../../package.json'),
+			// When running from apps/server-mcp/build/src/common/version.js
+			join(__dirname, '../../../package.json'),
+			// Fallback to workspace root
+			join(__dirname, '../../../../../package.json')
+		];
 
-		return packageJson.version;
+		for (const packageJsonPath of possiblePaths) {
+			try {
+				const packageJsonContent = readFileSync(packageJsonPath, 'utf8');
+				const packageJson = JSON.parse(packageJsonContent);
+
+				// Return version if found and it's a valid package.json
+				if (packageJson.version) {
+					return packageJson.version;
+				}
+			} catch (error) {
+				// Continue to next path if this one fails
+				continue;
+			}
+		}
+
+		// If no package.json found, return fallback
+		return '0.1.0';
 	} catch (error) {
 		console.error('Failed to read version from package.json:', error);
 		return '0.1.0'; // fallback version

@@ -1,4 +1,3 @@
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createMcpServer } from './mcp-server.js';
 import log from 'electron-log';
 import { spawn, ChildProcess } from 'child_process';

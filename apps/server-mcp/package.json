@@ -2,7 +2,7 @@
 	"name": "@gauzy/server-mcp",
 	"version": "0.1.0",
 	"description": "Ever Gauzy MCP Server - A Model Context Protocol server following the Plane MCP pattern, providing AI assistants with access to Gauzy's time tracking, project, and employee management features",
-	"type": "module",
+
 	"author": {
 		"name": "Ever Co. LTD",
 		"email": "ever@ever.co",
@@ -18,21 +18,27 @@
 	},
 	"license": "AGPL-3.0",
 	"private": true,
+	"type": "module",
 	"main": "build/src/index.js",
 	"scripts": {
 		"build": "rm -rf build && tsc && chmod 755 build/src/index.js",
-		"start": "yarn nx electron server-mcp",
-		"start:dev": "yarn nx electron-dev server-mcp",
+		"build:prod": "yarn nx build server-mcp --configuration=production",
+		"build:dev": "yarn nx build server-mcp --configuration=development",
+		"build:electron": "yarn nx build-electron server-mcp",
+		"build:electron:prod": "yarn nx build-electron server-mcp --configuration=production",
+		"build:electron:dev": "yarn nx build-electron server-mcp --configuration=development",
+		"start:electron": "yarn build:electron && node electron-start.js",
+		"start:electron:dev": "yarn nx electron-dev server-mcp",
 		"start:mcp": "yarn nx serve server-mcp",
-		"start:mcp-test": "yarn nx serve-mcp server-mcp",
-		"dev": "yarn nx serve server-mcp:development",
-		"test": "yarn nx test server-mcp",
-		"lint": "yarn nx lint server-mcp"
+		"start:mcp:test": "yarn nx serve-mcp server-mcp",
+		"serve": "yarn nx serve server-mcp",
+		"serve:dev": "yarn nx serve server-mcp:development",
+		"serve:prod": "yarn nx serve server-mcp:production"
 	},
 	"dependencies": {
-		"@electron/remote": "^2.0.8",
 		"@modelcontextprotocol/sdk": "^1.13.1",
 		"axios": "^1.7.0",
+		"custom-electron-titlebar": "^4.2.8",
 		"dotenv": "^16.4.5",
 		"electron-log": "^4.4.8",
 		"electron-store": "^8.1.0",

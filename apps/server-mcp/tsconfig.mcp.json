@@ -1,0 +1,29 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./build",
+        "module": "ES2022",
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": false,
+        "types": ["node"]
+    },
+    "files": [
+        "src/index.ts",
+        "src/schema.ts"
+    ],
+    "include": [
+        "src/index.ts",
+        "src/schema.ts",
+        "src/instance/mcp-server.ts",
+        "src/common/*.ts",
+        "src/tools/*.ts",
+        "src/environments/*.ts"
+    ],
+    "exclude": [
+        "src/electron-main.ts",
+        "src/preload/*.ts",
+        "jest.config.ts",
+        "src/**/*.test.ts",
+        "src/**/*.spec.ts"
+    ]
+}
