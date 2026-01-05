@@ -538,7 +538,7 @@
     parse5 "^7.1.2"
     tslib "^2.3.0"
 
-"@angular/cli@^19.2.17":
+"@angular/cli@~19.2.0":
   version "19.2.19"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-19.2.19.tgz#a76786f91ae7a8823f6e2db12c6d1108ec16ff54"
   integrity sha512-e9tAzFNOL4mMWfMnpC9Up83OCTOp2siIj8W41FCp8jfoEnw79AXDDLh3d70kOayiObchksTJVShslTogLUyhMw==
