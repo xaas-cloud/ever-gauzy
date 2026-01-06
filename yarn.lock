@@ -7549,10 +7549,10 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ng-select/ng-select@^14.8.1":
-  version "14.8.1"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-14.8.1.tgz#07f9d4f6417e66f725fb9cf24101c548d5faeb27"
-  integrity sha512-ZAl8BkUzVGrkXfuGBHqU2NylK/Uh5aP5iEENPoFXwSgsuyIGg/J5c+JQIN6eRC2GvmorsXDfhCdBJhJ0E+/gwA==
+"@ng-select/ng-select@^14.9.0":
+  version "14.9.0"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-14.9.0.tgz#8f9f09d37bd856f17dd0af06f1c485108b180658"
+  integrity sha512-f/E3EaSVwdKmwvZL43nS961bGaXR90F0Gtb8vA+ub8Hfwqjr1NTI6X7+yu5iMkqfy5ZW5cJdoGvo+kv8zcAkjQ==
   dependencies:
     tslib "^2.3.1"
 
