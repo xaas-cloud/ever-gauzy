@@ -568,7 +568,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/compiler-cli@19.2.17":
+"@angular/compiler-cli@~19.2.0":
   version "19.2.17"
   resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-19.2.17.tgz#e77c8bc92b160d9f7de7b0160333ad0523377ae7"
   integrity sha512-KG82fh2A0odttc6+FxlQmFfHY/Giq8rYeV1qtdafafJ8hdWIiMr4r37xwhZOl8uk2/XSLM66bxUMFHYm+zt87Q==
