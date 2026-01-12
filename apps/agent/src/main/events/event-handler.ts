@@ -132,6 +132,26 @@ export default class EventHandler {
 		}
 	}
 
+	private async resumeActivity() {
+		const authConfig = getAuthConfig();
+		this.getPullActivities(authConfig);
+		await this.pullActivities.recordIdleTime();
+		this.pullActivities.startedPausedDate = null;
+		await this.pullActivities.startTracking(this.pullActivities.isPaused);
+		this.pullActivities.isPaused = false;
+	}
+
+	private async pauseActivity() {
+		const authConfig = getAuthConfig();
+		this.getPullActivities(authConfig);
+		const isTimeRunning = this.pullActivities.running;
+		await this.pullActivities.stopTracking(true);
+		if (isTimeRunning) {
+			this.pullActivities.startedPausedDate = new Date();
+			this.pullActivities.isPaused = true;
+		}
+	}
+
 	async handleEvent(args: TEventArgs) {
 		switch (args.type) {
 			case MAIN_EVENT_TYPE.LOGOUT_EVENT:
@@ -157,6 +177,10 @@ export default class EventHandler {
 				return this.checkStatusTimer();
 			case MAIN_EVENT_TYPE.TRAY_TIMER_STATUS:
 				return this.trayTimerStatus();
+			case MAIN_EVENT_TYPE.ACTIVITY_RESUME:
+				return this.resumeActivity();
+			case MAIN_EVENT_TYPE.ACTIVITY_PAUSED:
+				return this.pauseActivity();
 			default: break;
 		}
 	}
