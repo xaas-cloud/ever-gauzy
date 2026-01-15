@@ -1593,6 +1593,7 @@
 		"SEARCH_INTEGRATIONS": "Search integrations",
 		"PAID": "Paid",
 		"INTEGRATION": "Integration",
+		"PLUGINS": "Plugins",
 		"MESSAGE": {
 			"SETTINGS_UPDATED": "Updated settings for '{{provider}}' integration",
 			"INTEGRATION_DELETED": "Integration '{{provider}}' deleted successfully",
@@ -5832,6 +5833,13 @@
 			"SYNC_ERROR": "Sync error",
 			"ERROR": "Validation error",
 			"START_ERROR": "Start error"
+		},
+		"ERRORS": {
+			"CANNOT_INSTALL": "Cannot install this plugin",
+			"DESKTOP_PLUGIN_REQUIRES_DESKTOP_ENVIRONMENT": "This desktop plugin can only be installed in a desktop environment",
+			"WEB_PLUGIN_REQUIRES_WEB_ENVIRONMENT": "This web plugin can only be installed in a web browser environment",
+			"MOBILE_PLUGIN_REQUIRES_MOBILE_ENVIRONMENT": "This mobile plugin can only be installed in a mobile environment",
+			"UNSUPPORTED_PLUGIN_TYPE": "This plugin type is not supported"
 		}
 	},
 	"SERVER_DOWN": {
