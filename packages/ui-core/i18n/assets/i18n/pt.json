@@ -230,6 +230,9 @@
 			"PLUGIN_MARKETPLACE": "Este plugin não está disponível no marketplace",
 			"LOADING": "Carregando..."
 		},
+		"QUEUE": "Fila",
+		"ATTEMPTS": "Tentativas",
+		"LAST_ERROR": "Último Erro",
 		"TRANSACTION_TYPE": "Digite",
 		"AMOUNT": "Quantia.",
 		"DATE": "Data.",
@@ -875,6 +878,8 @@
 			"IMPORT_MESSAGE": "Clique em \"IMPORTAR\" para inserir todas as tabelas no banco de dados. O nome do arquivo para upload deve ser: \"archive.zip\". Escolha também entre as opções \"Mesclar dados\" e \"Limpar antes da importação\".",
 			"IMPORT_HISTORY_MESSAGE": "Você pode acompanhar seus arquivos recentemente importados aqui.",
 			"SELECT_FILE": "Selecionar Ficheiro",
+			"EXIT_AGENT_LOGIN_CONFIRM": "Oops! Você precisa fazer login antes de usar o aplicativo.",
+			"EXIT_AGENT_PREVENT_CONFIRM": "Oops! Você não tem permissão para sair. Entre em contato com o administrador da sua conta.",
 			"DROP_FILE": "Solte o arquivo aqui.",
 			"NO_DROP_FILE": "Não é possível soltar o arquivo aqui.",
 			"BROWSE": "Navegar",
@@ -2432,7 +2437,15 @@
 			"EMPLOYEE_AVAILABILITY_CREATE": "Criar disponibilidade do funcionário",
 			"EMPLOYEE_AVAILABILITY_READ": "Visualizar disponibilidade do funcionário",
 			"EMPLOYEE_AVAILABILITY_UPDATE": "Atualizar disponibilidade do funcionário",
-			"EMPLOYEE_AVAILABILITY_DELETE": "Excluir disponibilidade do funcionário"
+			"EMPLOYEE_AVAILABILITY_DELETE": "Excluir disponibilidade do funcionário",
+			"BROADCAST_CREATE": "Criar broadcast",
+			"BROADCAST_READ": "Visualizar broadcast",
+			"BROADCAST_UPDATE": "Atualizar broadcast",
+			"BROADCAST_DELETE": "Excluir broadcast",
+			"ORG_STRATEGIC_INITIATIVE_CREATE": "Criar Iniciativa Estratégica da Organização",
+			"ORG_STRATEGIC_INITIATIVE_READ": "Visualizar Iniciativa Estratégica da Organização",
+			"ORG_STRATEGIC_INITIATIVE_UPDATE": "Atualizar Iniciativa Estratégica da Organização",
+			"ORG_STRATEGIC_INITIATIVE_DELETE": "Excluir Iniciativa Estratégica da Organização"
 		},
 		"BILLING": "Faturamento",
 		"BUDGET": "Orçamento",
@@ -4791,6 +4804,38 @@
 				"DELIVERY_URL": "URL de entrega",
 				"SECURE": "Seguro"
 			}
+		}
+	},
+	"SETTINGS_MONITORING": {
+		"HEADER": "Monitoramento e análise",
+		"SERVICES": "Serviços",
+		"SCOPE": "Escopo",
+		"GLOBAL": "Global",
+		"TENANT": "Inquilino",
+		"POSTHOG": {
+			"TITLE": "Análise do PostHog",
+			"ENABLED": "Ativar PostHog",
+			"API_KEY": "Chave de API",
+			"API_KEY_PLACEHOLDER": "Insira a chave de API do seu projeto PostHog",
+			"HOST": "URL do host",
+			"HOST_PLACEHOLDER": "https://app.posthog.com",
+			"FLUSH_INTERVAL": "Intervalo de envio (ms)",
+			"FLUSH_INTERVAL_PLACEHOLDER": "10000",
+			"FLUSH_INTERVAL_HINT": "Tempo em milissegundos entre o envio de eventos em lote"
+		},
+		"SENTRY": {
+			"TITLE": "Monitoramento de erros do Sentry",
+			"ENABLED": "Ativar Sentry",
+			"DSN": "DSN",
+			"DSN_PLACEHOLDER": "https://xxx@sentry.io/xxx"
+		},
+		"JITSU": {
+			"TITLE": "Análise do Jitsu",
+			"ENABLED": "Ativar Jitsu",
+			"HOST": "URL do host",
+			"HOST_PLACEHOLDER": "https://your-jitsu-host.com",
+			"WRITE_KEY": "Chave de escrita",
+			"WRITE_KEY_PLACEHOLDER": "Insira sua chave de escrita do Jitsu"
 		}
 	},
 	"CUSTOM_SMTP_PAGE": {

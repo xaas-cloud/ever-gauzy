@@ -230,6 +230,9 @@
 			"PLUGIN_MARKETPLACE": "Deze plugin is niet beschikbaar op de marktplaats",
 			"LOADING": "Laden..."
 		},
+		"QUEUE": "Wachtrij",
+		"ATTEMPTS": "Pogingen",
+		"LAST_ERROR": "Laatste Fout",
 		"TRANSACTION_TYPE": "Type",
 		"AMOUNT": "Bedrag",
 		"DATE": "Datum",
@@ -875,6 +878,8 @@
 			"IMPORT_MESSAGE": "Klik op \"IMPORTEREN\" om alle tabellen in de database in te voegen. De naam van het te uploaden bestand moet \"archive.zip\" zijn. Kies ook tussen de opties \"Gegevens samenvoegen\" en \"Opschonen voor import\".",
 			"IMPORT_HISTORY_MESSAGE": "Je kunt hier je recent geïmporteerde bestanden volgen.",
 			"SELECT_FILE": "Selecteer bestand",
+			"EXIT_AGENT_LOGIN_CONFIRM": "Oeps! Je moet inloggen voordat je de app kunt gebruiken.",
+			"EXIT_AGENT_PREVENT_CONFIRM": "Oeps! Je mag niet afsluiten. Neem contact op met je accountbeheerder.",
 			"DROP_FILE": "Sleep het bestand hierheen",
 			"NO_DROP_FILE": "Hier kan het bestand niet worden neergezet",
 			"BROWSE": "BLADEREN",
@@ -2432,7 +2437,15 @@
 			"EMPLOYEE_AVAILABILITY_CREATE": "Werknemersbeschikbaarheid aanmaken",
 			"EMPLOYEE_AVAILABILITY_READ": "Bekijk werknemersbeschikbaarheid",
 			"EMPLOYEE_AVAILABILITY_UPDATE": "Werknemersbeschikbaarheid bijwerken",
-			"EMPLOYEE_AVAILABILITY_DELETE": "Werknemersbeschikbaarheid verwijderen"
+			"EMPLOYEE_AVAILABILITY_DELETE": "Werknemersbeschikbaarheid verwijderen",
+			"BROADCAST_CREATE": "Broadcast aanmaken",
+			"BROADCAST_READ": "Broadcast bekijken",
+			"BROADCAST_UPDATE": "Broadcast bijwerken",
+			"BROADCAST_DELETE": "Broadcast verwijderen",
+			"ORG_STRATEGIC_INITIATIVE_CREATE": "Organisatiestrategische initiatief aanmaken",
+			"ORG_STRATEGIC_INITIATIVE_READ": "Bekijk organisatiestrategische initiatief",
+			"ORG_STRATEGIC_INITIATIVE_UPDATE": "Bewerk organisatiestrategische initiatief",
+			"ORG_STRATEGIC_INITIATIVE_DELETE": "Verwijder organisatiestrategische initiatief"
 		},
 		"BILLING": "Facturatie",
 		"BUDGET": "Budget",
@@ -4791,6 +4804,38 @@
 				"DELIVERY_URL": "Afleverings-URL",
 				"SECURE": "Beveiligen"
 			}
+		}
+	},
+	"SETTINGS_MONITORING": {
+		"HEADER": "Monitoring en analyse",
+		"SERVICES": "Diensten",
+		"SCOPE": "Bereik",
+		"GLOBAL": "Globaal",
+		"TENANT": "Huurder",
+		"POSTHOG": {
+			"TITLE": "PostHog-analyse",
+			"ENABLED": "PostHog inschakelen",
+			"API_KEY": "API-sleutel",
+			"API_KEY_PLACEHOLDER": "Voer de API-sleutel van je PostHog-project in",
+			"HOST": "Host-URL",
+			"HOST_PLACEHOLDER": "https://app.posthog.com",
+			"FLUSH_INTERVAL": "Verzendinterval (ms)",
+			"FLUSH_INTERVAL_PLACEHOLDER": "10000",
+			"FLUSH_INTERVAL_HINT": "Tijd in milliseconden tussen het verzenden van gebundelde events"
+		},
+		"SENTRY": {
+			"TITLE": "Sentry-foutopsporing",
+			"ENABLED": "Sentry inschakelen",
+			"DSN": "DSN",
+			"DSN_PLACEHOLDER": "https://xxx@sentry.io/xxx"
+		},
+		"JITSU": {
+			"TITLE": "Jitsu-analyse",
+			"ENABLED": "Jitsu inschakelen",
+			"HOST": "Host-URL",
+			"HOST_PLACEHOLDER": "https://your-jitsu-host.com",
+			"WRITE_KEY": "Schrijfsleutel",
+			"WRITE_KEY_PLACEHOLDER": "Voer je Jitsu-schrijfsleutel in"
 		}
 	},
 	"CUSTOM_SMTP_PAGE": {
