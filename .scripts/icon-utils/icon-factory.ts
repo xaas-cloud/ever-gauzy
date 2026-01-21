@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ quiet: true });
 
 import { PlatformLogoGenerator } from './concrete-generators/platform-logo-generator';
 import { DesktopIconGenerator } from './concrete-generators/desktop-icon-generator';
