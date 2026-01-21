@@ -7,7 +7,6 @@ import { DesktopDefaultIconGenerator } from './concrete-generators/desktop-defau
 import { NoInternetLogoGenerator } from './concrete-generators/no-internet-logo-generator';
 import { DesktopEnvironmentManager } from '../electron-desktop-environment/desktop-environment-manager';
 
-
 export class IconFactory {
 	public static async generateDefaultIcons(): Promise<void> {
 		const defaultIcon = new DesktopDefaultIconGenerator();
