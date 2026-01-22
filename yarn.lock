@@ -14655,12 +14655,12 @@
     debug "^4.3.4"
 
 "@typescript-eslint/scope-manager@8.49.0", "@typescript-eslint/scope-manager@^8.0.0":
-  version "8.53.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.53.0.tgz#f922fcbf0d42e72f065297af31779ccf19de9a97"
-  integrity sha512-kWNj3l01eOGSdVBnfAF2K1BTh06WS0Yet6JUgb9Cmkqaz3Jlu0fdVUjj9UI8gPidBWSMqDIglmEXifSgDT/D0g==
+  version "8.53.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-8.53.1.tgz#6c4b8c82cd45ae3b365afc2373636e166743a8fa"
+  integrity sha512-Lu23yw1uJMFY8cUeq7JlrizAgeQvWugNQzJp8C3x8Eo5Jw5Q2ykMdiiTB9vBVOOUBysMzmRRmUfwFrZuI2C4SQ==
   dependencies:
-    "@typescript-eslint/types" "8.53.0"
-    "@typescript-eslint/visitor-keys" "8.53.0"
+    "@typescript-eslint/types" "8.53.1"
+    "@typescript-eslint/visitor-keys" "8.53.1"
 
 "@typescript-eslint/tsconfig-utils@8.49.0":
   version "8.49.0"
@@ -14692,7 +14692,12 @@
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.49.0.tgz#c1bd3ebf956d9e5216396349ca23c58d74f06aee"
   integrity sha512-e9k/fneezorUo6WShlQpMxXh8/8wfyc+biu6tnAqA81oWrEic0k21RHzP9uqqpyBBeBKu4T+Bsjy9/b8u7obXQ==
 
-"@typescript-eslint/types@8.53.0", "@typescript-eslint/types@^8.49.0":
+"@typescript-eslint/types@8.53.1":
+  version "8.53.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.53.1.tgz#101f203f0807a63216cceceedb815fabe21d5793"
+  integrity sha512-jr/swrr2aRmUAUjW5/zQHbMaui//vQlsZcJKijZf3M26bnmLj8LyZUpj8/Rd6uzaek06OWsqdofN/Thenm5O8A==
+
+"@typescript-eslint/types@^8.49.0":
   version "8.53.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-8.53.0.tgz#1adcad3fa32bc2c4cbf3785ba07a5e3151819efb"
   integrity sha512-Bmh9KX31Vlxa13+PqPvt4RzKRN1XORYSLlAE+sO1i28NkisGbTtSLFVB3l7PWdHtR3E0mVMuC7JilWJ99m2HxQ==
@@ -14736,12 +14741,12 @@
     "@typescript-eslint/types" "8.49.0"
     "@typescript-eslint/typescript-estree" "8.49.0"
 
-"@typescript-eslint/visitor-keys@8.32.0", "@typescript-eslint/visitor-keys@8.49.0", "@typescript-eslint/visitor-keys@8.53.0", "@typescript-eslint/visitor-keys@^8.0.0":
-  version "8.53.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.53.0.tgz#9a785664ddae7e3f7e570ad8166e48dbc9c6cf02"
-  integrity sha512-LZ2NqIHFhvFwxG0qZeLL9DvdNAHPGCY5dIRwBhyYeU+LfLhcStE1ImjsuTG/WaVh3XysGaeLW8Rqq7cGkPCFvw==
+"@typescript-eslint/visitor-keys@8.32.0", "@typescript-eslint/visitor-keys@8.49.0", "@typescript-eslint/visitor-keys@8.53.1", "@typescript-eslint/visitor-keys@^8.0.0":
+  version "8.53.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-8.53.1.tgz#405f04959be22b9be364939af8ac19c3649b6eb7"
+  integrity sha512-oy+wV7xDKFPRyNggmXuZQSBzvoLnpmJs+GhzRhPjrxl2b/jIlyjVokzm47CZCDUdXKr2zd7ZLodPfOBpOPyPlg==
   dependencies:
-    "@typescript-eslint/types" "8.53.0"
+    "@typescript-eslint/types" "8.53.1"
     eslint-visitor-keys "^4.2.1"
 
 "@upwork/node-upwork-oauth2@^2.0.3":
@@ -30975,9 +30980,9 @@ no-case@^2.2.0:
     lower-case "^1.1.1"
 
 node-abi@^3.3.0, node-abi@^3.45.0, node-abi@^3.73.0, node-abi@^3.78.0:
-  version "3.78.0"
-  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.78.0.tgz#fd0ecbd0aa89857b98da06bd3909194abb0821ba"
-  integrity sha512-E2wEyrgX/CqvicaQYU3Ze1PFGjc4QYPGsjUrlYkqAE0WjHEZwgOsGMPMzkMse4LjJbDmaEuDX3CM036j5K2DSQ==
+  version "3.87.0"
+  resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-3.87.0.tgz#423e28fea5c2f195fddd98acded9938c001ae6dd"
+  integrity sha512-+CGM1L1CgmtheLcBuleyYOn7NWPVu0s0EJH2C4puxgEZb9h8QpR9G2dBfZJOAUhi7VQxuBPMd0hiISWcTyiYyQ==
   dependencies:
     semver "^7.3.5"
 
@@ -38643,9 +38648,9 @@ tar@6.2.1, tar@^6.0.2, tar@^6.0.5, tar@^6.1.0, tar@^6.1.11, tar@^6.1.12, tar@^6.
     yallist "^4.0.0"
 
 tar@^7.4.3:
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.3.tgz#e1a41236e32446f75e63b720222112c4ffe5b3a1"
-  integrity sha512-ENg5JUHUm2rDD7IvKNFGzyElLXNjachNLp6RaGf4+JOgxXHkqA+gq81ZAMCUmtMtqBsoU62lcp6S27g1LCYGGQ==
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-7.5.4.tgz#18b53b44f939a7e03ed874f1fafe17d29e306c81"
+  integrity sha512-AN04xbWGrSTDmVwlI4/GTlIIwMFk/XEv7uL8aa57zuvRy6s4hdBed+lVq2fAZ89XDa7Us3ANXcE3Tvqvja1kTA==
   dependencies:
     "@isaacs/fs-minipass" "^4.0.0"
     chownr "^3.0.0"
