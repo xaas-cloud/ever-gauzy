@@ -164,7 +164,7 @@
 		"build:package:desktop-window:docker": "yarn run build:package:desktop-core:docker && yarn ng:docker build desktop-window",
 		"build:package:desktop-lib": "yarn run build:package:desktop-window && yarn ng build desktop-lib",
 		"build:package:desktop-lib:prod": "yarn run build:package:desktop-window:prod && yarn ng:prod build desktop-lib",
-		"build:package:desktop-lib:docker": "yarn run build:package:desktop-window:prod && yarn ng:docker build desktop-lib",
+		"build:package:desktop-lib:docker": "yarn run build:package:desktop-window:docker && yarn ng:docker build desktop-lib",
 		"build:package:desktop-ui-lib": "yarn ng build desktop-ui-lib --configuration=development",
 		"build:package:desktop-ui-lib:prod": "yarn ng:prod build desktop-ui-lib --configuration=production",
 		"build:package:desktop-ui-lib:docker": "yarn ng:docker build desktop-ui-lib --configuration=production",
