@@ -1,8 +1,8 @@
 {
-    "name": "gauzy-desktop-timer",
-    "productName": "Gauzy Desktop Timer",
+    "name": "ever-gauzy-desktop-timer",
+    "productName": "Ever Gauzy Desktop Timer",
     "version": "0.1.0",
-    "description": "Gauzy Desktop Timer",
+    "description": "Ever Gauzy Desktop Timer",
     "license": "AGPL-3.0",
     "homepage": "https://gauzy.co",
     "repository": {
@@ -20,9 +20,9 @@
     },
     "main": "index.js",
     "build": {
-        "appId": "com.ever.gauzydesktoptimer",
+        "appId": "co.ever.gauzy.desktoptimer",
         "artifactName": "${name}-${arch}-${version}.${ext}",
-        "productName": "Gauzy Desktop Timer",
+        "productName": "Ever Gauzy Desktop Timer",
         "copyright": "Copyright © 2019-Present. Ever Co. LTD",
         "afterSign": "tools/notarize.js",
         "dmg": {
@@ -92,7 +92,7 @@
                 "rpm",
                 "AppImage"
             ],
-            "executableName": "gauzy-desktop-timer",
+            "executableName": "ever-gauzy-desktop-timer",
             "artifactName": "${name}-${arch}-${version}.${ext}",
             "synopsis": "Desktop",
             "category": "Development"
