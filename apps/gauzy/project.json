@@ -138,7 +138,6 @@
 			"options": {
 				"buildTarget": "gauzy:build",
 				"proxyConfig": "apps/gauzy/proxy.conf.json",
-				"hmr": true,
 				"liveReload": true
 			},
 			"configurations": {
@@ -149,7 +148,6 @@
 				"local": {
 					"buildTarget": "gauzy:build:local",
 					"proxyConfig": "apps/gauzy/proxy.conf.json",
-					"hmr": true,
 					"liveReload": true,
 					"poll": 0
 				}
