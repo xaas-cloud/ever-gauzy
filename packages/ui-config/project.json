@@ -32,6 +32,9 @@
 		},
 		"setup-env": {
 			"executor": "nx:run-commands",
+			"options": {
+				"parallel": false
+			},
 			"configurations": {
 				"production": {
 					"commands": [
