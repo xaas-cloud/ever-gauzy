@@ -117,6 +117,7 @@
 					"extractLicenses": false,
 					"sourceMap": true,
 					"namedChunks": true,
+					"progress": false,
 					"budgets": [
 						{
 							"type": "initial",
@@ -136,7 +137,9 @@
 			"executor": "@angular-builders/custom-webpack:dev-server",
 			"options": {
 				"buildTarget": "gauzy:build",
-				"proxyConfig": "apps/gauzy/proxy.conf.json"
+				"proxyConfig": "apps/gauzy/proxy.conf.json",
+				"hmr": true,
+				"liveReload": true
 			},
 			"configurations": {
 				"production": {
@@ -145,7 +148,10 @@
 				},
 				"local": {
 					"buildTarget": "gauzy:build:local",
-					"proxyConfig": "apps/gauzy/proxy.conf.json"
+					"proxyConfig": "apps/gauzy/proxy.conf.json",
+					"hmr": true,
+					"liveReload": true,
+					"poll": 0
 				}
 			},
 			"defaultConfiguration": "local"
