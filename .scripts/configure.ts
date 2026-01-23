@@ -2,7 +2,7 @@
 // We are using dotenv (.env) for consistency with other Platform projects
 // This is Angular app and all settings will be loaded into the client browser!
 
-import { existsSync, mkdirSync, writeFileSync, unlinkSync } from 'fs';
+import { existsSync, mkdirSync, writeFile, unlinkSync } from 'fs';
 import * as path from 'path';
 import { argv } from 'yargs';
 import { env } from './env';
@@ -403,21 +403,23 @@ if (!existsSync(environmentsFolder)) {
 const envFilePath = path.join(environmentsFolder, envFileDest);
 const envFileOtherPath = path.join(environmentsFolder, envFileDestOther);
 
-try {
-	writeFileSync(envFilePath, envFileContent, 'utf8');
-	console.log(`Generated Angular environment file: ${envFilePath}`);
-} catch (error) {
-	console.error(`Error writing environment file: ${error}`);
-	throw error;
-}
+writeFile(envFilePath, envFileContent, (error) => {
+	if (error) {
+		console.error(`Error writing environment file: ${error}`);
+	} else {
+		// Paths to environment files
+		const envFilePath = path.resolve(`./packages/ui-config/src/lib/environments/${envFileDest}`);
+		console.log(`Generated Angular environment file: ${envFilePath}`);
+	}
+});
 
 let envFileDestOtherContent = `export const environment = { production: ${!isProd} }`;
 
-try {
-	writeFileSync(envFileOtherPath, envFileDestOtherContent, 'utf8');
-	console.log(`Generated Second Empty Angular environment file: ${envFileOtherPath}`);
-	console.log('Environment configuration completed successfully');
-} catch (error) {
-	console.error(`Error writing environment file: ${error}`);
-	throw error;
-}
+writeFile(envFileOtherPath, envFileDestOtherContent, (error) => {
+	if (error) {
+		console.error(`Error writing environment file: ${error}`);
+	} else {
+		const envFileOtherPath = path.resolve(`./packages/ui-config/src/lib/environments/${envFileDestOther}`);
+		console.log(`Generated Second Empty Angular environment file: ${envFileOtherPath}`);
+	}
+});
