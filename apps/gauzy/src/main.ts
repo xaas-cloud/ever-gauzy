@@ -7,10 +7,6 @@ import { AppModule } from './app/app.module';
 console.log('Environment Mode:', environment.production ? 'Production' : 'Development');
 
 if (environment.production) {
-	console.log('Environment Variables:', JSON.stringify(environment, null, 2));
-}
-
-if (environment.production) {
 	enableProdMode();
 	enableAkitaProdMode();
 }
