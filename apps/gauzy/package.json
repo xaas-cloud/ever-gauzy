@@ -161,7 +161,7 @@
 		"underscore.string": "^3.3.6",
 		"uuid": "^13.0.0",
 		"web-animations-js": "^2.3.2",
-		"yargs": "^17.5.0",
+		"yargs": "^18.0.0",
 		"zone.js": "0.15.0"
 	},
 	"devDependencies": {
