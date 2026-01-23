@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv';
-dotenv.config({ quiet: true });
+dotenv.config();
 
 import * as path from 'path';
 import { ApplicationPluginConfig } from '@gauzy/common';

@@ -22417,7 +22417,7 @@ dotenv@16.4.7, dotenv@~16.4.5:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.4.7.tgz#0e20c5b82950140aa99be360a8a5f52335f53c26"
   integrity sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==
 
-dotenv@17.2.3, dotenv@^17.2.3:
+dotenv@17.2.3:
   version "17.2.3"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-17.2.3.tgz#ad995d6997f639b11065f419a22fabf567cdb9a2"
   integrity sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==
@@ -32387,10 +32387,10 @@ nerf-dart@^1.0.0:
   resolved "https://registry.yarnpkg.com/nerf-dart/-/nerf-dart-1.0.0.tgz#e6dab7febf5ad816ea81cf5c629c5a0ebde72c1a"
   integrity sha512-EZSPZB70jiVsivaBLYDCyntd5eH8NTSMOn3rB+HxwdmKThGELLdYv8qVIMWvZEFy9w8ZZpW9h9OB32l1rGtj7g==
 
-nest-knexjs@^0.0.26:
-  version "0.0.26"
-  resolved "https://registry.yarnpkg.com/nest-knexjs/-/nest-knexjs-0.0.26.tgz#6c6fa82b6728ac5209148c8b5cc806814567dc71"
-  integrity sha512-fePjc2F2dKsK77anw2wl779SEtVSesBcqJCu2UimGCZCTfvqHstTWOQdQ2KY6airL8ftBifff8NYPk9+hhzo/A==
+nest-knexjs@^0.0.29:
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/nest-knexjs/-/nest-knexjs-0.0.29.tgz#784fee22c0af436e8b1ae1e3fe9a8d90fd48884b"
+  integrity sha512-eYhNJWcMo8nAwKNYRcHM5A4sHygGIu+YyFWnPqu8/fLXIicRCAK5KFMMSpMT7bxUT/oUXPcdrL+64hzEtMf3qQ==
 
 nestjs-cls@^5.4.3:
   version "5.4.3"
@@ -32478,10 +32478,10 @@ ngx-clipboard@^16.0.0:
     ngx-window-token ">=7.0.0"
     tslib "^2.0.0"
 
-ngx-color-picker@^19.0.0:
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-19.0.0.tgz#1084c332b7a7e9c8e2aae0e06e88c0f2bbedde25"
-  integrity sha512-jZs7nk/DJB6FryElYnfkojWYCgpEc650s800g+39ebocVMZ18fAHf/CQd5+Bdm4E3zoRod0a0sErJ+c8tGQcCg==
+ngx-color-picker@^20.1.1:
+  version "20.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-20.1.1.tgz#59c196d6872d9e7ef3df0060d59dc32e12c34894"
+  integrity sha512-wFk1L9F3JBd1Th+auYexN4uyynaT2dhxVRn0Dd55HrhfVcxfylExITDJ+Bhrcl0W+QHtX6gVbfZuX2hBXeVMFA==
   dependencies:
     tslib "^2.3.0"
 
