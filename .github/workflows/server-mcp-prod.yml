@@ -174,7 +174,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [warp-macos-15-arm64-6x]
+        os: [ghcr.io/cirruslabs/macos-runner:tahoe]
 
     steps:
       - name: Check out Git repository
