@@ -9,11 +9,11 @@ import * as dotenv from 'dotenv';
  * @param {object} options - Options for dotenv configuration.
  * @param {boolean} [options.override=false] - Whether to override existing environment variables.
  */
-export function loadEnvFile(envPath: string, options: { override?: boolean } = {}): void {
+export function loadEnvFile(envPath: string, options: { override?: boolean; quiet?: boolean } = {}): void {
 	if (fs.existsSync(envPath)) {
 		console.time(`✔ Load ${path.basename(envPath)} Time`);
 		console.log(`Loading environment variables from: ${envPath}${options.override ? ' (override)' : ''}`);
-		dotenv.config({ path: envPath, ...options });
+		dotenv.config({ path: envPath, quiet: true, ...options });
 		console.timeEnd(`✔ Load ${path.basename(envPath)} Time`);
 	}
 }
