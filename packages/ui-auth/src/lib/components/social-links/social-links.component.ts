@@ -66,31 +66,31 @@ export class SocialLinksComponent implements OnInit {
 			{
 				url: environment.GOOGLE_AUTH_LINK,
 				icon: 'google-outline',
-				show: configs.google_login
+				show: configs.microsoft_login
 			},
 			{
 				url: environment.FACEBOOK_AUTH_LINK,
 				icon: 'facebook-outline',
-				show: configs.facebook_login
+				show: configs.microsoft_login
 			},
 			{
 				url: environment.GITHUB_AUTH_LINK,
 				icon: 'github-outline',
-				show: configs.github_login
+				show: configs.microsoft_login
 			},
 			{
 				url: environment.TWITTER_AUTH_LINK,
 				icon: 'twitter-outline',
-				show: configs.twitter_login
+				show: configs.microsoft_login
 			},
 			{
 				url: environment.LINKEDIN_AUTH_LINK,
 				icon: 'linkedin-outline',
-				show: configs.linkedin_login
+				show: configs.microsoft_login
 			},
 			{
 				url: environment.MICROSOFT_AUTH_LINK,
-				icon: 'grid',
+				icon: 'microsoft',
 				show: configs.microsoft_login
 			}
 		].filter((item: ISocialLink) => !!item.show);
