@@ -20,7 +20,7 @@ import {
 	NbCalendarModule,
 	NbCalendarKitModule
 } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -98,8 +98,7 @@ const NB_MODULES = [
 	NbDialogModule.forRoot(),
 	NbWindowModule.forRoot(),
 	NbToastrModule.forRoot(),
-	NbChatModule.forRoot({ messageGoogleMapKey: environment.CHAT_MESSAGE_GOOGLE_MAP }),
-	NbEvaIconsModule
+	NbChatModule.forRoot({ messageGoogleMapKey: environment.CHAT_MESSAGE_GOOGLE_MAP })
 ];
 
 // Third Party Modules
@@ -118,14 +117,14 @@ const THIRD_PARTY_MODULES = [
 
 	...(environment.POSTHOG_ENABLED && environment.POSTHOG_KEY && environment.POSTHOG_KEY !== 'DOCKER_POSTHOG_KEY'
 		? [
-				PostHogModule.forRoot({
-					apiKey: environment.POSTHOG_KEY,
-					options: {
-						api_host: environment.POSTHOG_HOST,
-						capture_pageview: true
-					}
-				})
-		  ]
+			PostHogModule.forRoot({
+				apiKey: environment.POSTHOG_KEY,
+				options: {
+					api_host: environment.POSTHOG_HOST,
+					capture_pageview: true
+				}
+			})
+		]
 		: [])
 ];
 
@@ -307,5 +306,5 @@ export function featureToggleLoaderFactory(provider: FeatureService, store: Stor
 				store.featureToggles = features || [];
 				return features;
 			})
-			.catch(() => {});
+			.catch(() => { });
 }

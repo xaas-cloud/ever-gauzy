@@ -31,7 +31,7 @@ import {
 	NbRouteTabsetModule,
 	NbDialogModule,
 } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 
 import { AgentDashboardComponent } from './agent-dashboard.component';
 import { LogsPageComponent } from './logs/logs.component';
@@ -44,9 +44,9 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 
 @NgModule({
 	declarations: [
-		AgentDashboardComponent, 
-		LogsPageComponent, 
-		SyncPageComponent, 
+		AgentDashboardComponent,
+		LogsPageComponent,
+		SyncPageComponent,
 		StatusBadgeComponent,
 		ActivitySyncDetailModalComponent
 	],
@@ -62,7 +62,7 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 		NbSidebarModule.forRoot(),
 		NbMenuModule,
 		NbIconModule,
-		NbEvaIconsModule,
+
 		NbButtonModule,
 		NbCardModule,
 		NbActionsModule,

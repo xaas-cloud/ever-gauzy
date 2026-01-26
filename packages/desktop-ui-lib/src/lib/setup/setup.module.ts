@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SetupComponent } from './setup.component';
 // import { AlertComponent } from '../../@shared/dialogs/alert/alert.component';
 import { FormsModule } from '@angular/forms';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import {
 	NbButtonModule,
 	NbCardModule,
@@ -40,7 +40,7 @@ import { SetupService } from './setup.service';
 		NbSpinnerModule,
 		NbCheckboxModule,
 		NbIconModule,
-		NbEvaIconsModule,
+
 		NbStepperModule,
 		NbIconModule,
 		NbRadioModule,
@@ -54,4 +54,4 @@ import { SetupService } from './setup.service';
 	exports: [SetupComponent],
 	providers: [SetupService, NbDialogService]
 })
-export class SetupModule {}
+export class SetupModule { }

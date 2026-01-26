@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import {
 	NbButtonModule,
 	NbCardModule,
@@ -25,10 +25,10 @@ import { ImageViewerService } from './image-viewer.service';
 		NbDialogModule,
 		NbButtonModule,
 		NbSpinnerModule,
-		NbEvaIconsModule,
+
 		PipeModule
 	],
 	exports: [ImageViewerComponent],
 	providers: [NbDialogService, ImageViewerService, ImageCacheService, StorageService, Store]
 })
-export class ImageViewerModule {}
+export class ImageViewerModule { }

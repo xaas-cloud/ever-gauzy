@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import {
 	NbAlertModule,
 	NbBadgeModule,
@@ -244,7 +244,7 @@ import { PluginRoutingModule } from './plugin-routing.module';
 		PipeModule,
 		NbListModule,
 		SelectModule,
-		NbEvaIconsModule,
+
 		DragDropModule,
 		NbTagModule,
 		InfiniteScrollDirective,
@@ -315,4 +315,4 @@ import { PluginRoutingModule } from './plugin-routing.module';
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PluginsModule {}
+export class PluginsModule { }

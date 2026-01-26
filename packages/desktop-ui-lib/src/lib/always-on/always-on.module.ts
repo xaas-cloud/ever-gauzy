@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import { NbButtonModule, NbCardModule, NbIconModule, NbLayoutModule, NbTooltipModule } from '@nebular/theme';
 import { LanguageModule } from '../language/language.module';
 import { AlwaysOnComponent } from './always-on.component';
@@ -17,7 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 		NbIconModule,
 		NbTooltipModule,
 		NbButtonModule,
-		NbEvaIconsModule,
+
 		NbCardModule,
 		FormsModule,
 		FontAwesomeModule

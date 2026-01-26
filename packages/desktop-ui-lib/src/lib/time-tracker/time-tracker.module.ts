@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 import {
 	NbBadgeModule,
 	NbButtonModule,
@@ -71,7 +71,7 @@ import { TimerTrackerChangeDialogComponent } from './timer-tracker-change-dialog
 		NbButtonModule,
 		NbSpinnerModule,
 		NbIconModule,
-		NbEvaIconsModule,
+
 		NbSidebarModule,
 		FormsModule,
 		NbCheckboxModule,
@@ -122,4 +122,4 @@ import { TimerTrackerChangeDialogComponent } from './timer-tracker-change-dialog
 	],
 	exports: [TimeTrackerComponent]
 })
-export class TimeTrackerModule {}
+export class TimeTrackerModule { }
