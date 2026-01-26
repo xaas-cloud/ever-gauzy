@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
 import {
 	NbButtonModule,
 	NbCardModule,
@@ -25,7 +24,6 @@ import { ImageViewerService } from './image-viewer.service';
 		NbDialogModule,
 		NbButtonModule,
 		NbSpinnerModule,
-
 		PipeModule
 	],
 	exports: [ImageViewerComponent],

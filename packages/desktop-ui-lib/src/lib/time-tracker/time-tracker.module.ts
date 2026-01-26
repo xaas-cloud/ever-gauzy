@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import {
 	NbBadgeModule,
 	NbButtonModule,
@@ -71,7 +70,6 @@ import { TimerTrackerChangeDialogComponent } from './timer-tracker-change-dialog
 		NbButtonModule,
 		NbSpinnerModule,
 		NbIconModule,
-
 		NbSidebarModule,
 		FormsModule,
 		NbCheckboxModule,

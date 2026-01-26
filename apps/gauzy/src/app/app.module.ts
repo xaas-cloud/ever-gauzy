@@ -20,7 +20,6 @@ import {
 	NbCalendarModule,
 	NbCalendarKitModule
 } from '@nebular/theme';
-
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';

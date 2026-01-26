@@ -34,9 +34,7 @@
 					{
 						"glob": "**/*",
 						"input": "apps/server-api/src/",
-						"ignore": [
-							"**/*.ts"
-						],
+						"ignore": ["**/*.ts"],
 						"output": ""
 					}
 				],

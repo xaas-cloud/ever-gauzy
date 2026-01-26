@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { SetupComponent } from './setup.component';
 // import { AlertComponent } from '../../@shared/dialogs/alert/alert.component';
 import { FormsModule } from '@angular/forms';
-
 import {
 	NbButtonModule,
 	NbCardModule,
@@ -40,7 +39,6 @@ import { SetupService } from './setup.service';
 		NbSpinnerModule,
 		NbCheckboxModule,
 		NbIconModule,
-
 		NbStepperModule,
 		NbIconModule,
 		NbRadioModule,

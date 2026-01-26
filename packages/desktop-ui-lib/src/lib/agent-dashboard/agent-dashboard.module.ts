@@ -29,7 +29,7 @@ import {
 	NbCheckboxModule,
 	NbAlertModule,
 	NbRouteTabsetModule,
-	NbDialogModule
+	NbDialogModule,
 } from '@nebular/theme';
 
 import { AgentDashboardComponent } from './agent-dashboard.component';
@@ -43,9 +43,9 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 
 @NgModule({
 	declarations: [
-		AgentDashboardComponent,
-		LogsPageComponent,
-		SyncPageComponent,
+		AgentDashboardComponent, 
+		LogsPageComponent, 
+		SyncPageComponent, 
 		StatusBadgeComponent,
 		ActivitySyncDetailModalComponent
 	],
@@ -61,7 +61,6 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 		NbSidebarModule.forRoot(),
 		NbMenuModule,
 		NbIconModule,
-
 		NbButtonModule,
 		NbCardModule,
 		NbActionsModule,
@@ -85,6 +84,9 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 		TasksModule,
 		Angular2SmartTableModule
 	],
-	exports: [FilterStatusPipe, LocalDateParse]
+	exports: [
+		FilterStatusPipe,
+		LocalDateParse
+	]
 })
-export class AgentDashboardModule {}
+export class AgentDashboardModule { }
