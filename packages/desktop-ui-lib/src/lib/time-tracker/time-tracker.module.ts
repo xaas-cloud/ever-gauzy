@@ -122,4 +122,4 @@ import { TimerTrackerChangeDialogComponent } from './timer-tracker-change-dialog
 	],
 	exports: [TimeTrackerComponent]
 })
-export class TimeTrackerModule { }
+export class TimeTrackerModule {}

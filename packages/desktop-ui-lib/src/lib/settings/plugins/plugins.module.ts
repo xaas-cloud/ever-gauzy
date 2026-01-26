@@ -315,4 +315,4 @@ import { PluginRoutingModule } from './plugin-routing.module';
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PluginsModule { }
+export class PluginsModule {}

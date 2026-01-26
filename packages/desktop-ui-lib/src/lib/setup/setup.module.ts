@@ -54,4 +54,4 @@ import { SetupService } from './setup.service';
 	exports: [SetupComponent],
 	providers: [SetupService, NbDialogService]
 })
-export class SetupModule { }
+export class SetupModule {}

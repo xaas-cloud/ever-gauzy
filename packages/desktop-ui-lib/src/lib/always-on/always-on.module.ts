@@ -24,4 +24,4 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 	],
 	providers: [AlwaysOnService]
 })
-export class AlwaysOnModule { }
+export class AlwaysOnModule {}

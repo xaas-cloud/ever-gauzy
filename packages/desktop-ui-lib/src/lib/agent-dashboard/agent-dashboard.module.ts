@@ -29,9 +29,8 @@ import {
 	NbCheckboxModule,
 	NbAlertModule,
 	NbRouteTabsetModule,
-	NbDialogModule,
+	NbDialogModule
 } from '@nebular/theme';
-
 
 import { AgentDashboardComponent } from './agent-dashboard.component';
 import { LogsPageComponent } from './logs/logs.component';
@@ -86,9 +85,6 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 		TasksModule,
 		Angular2SmartTableModule
 	],
-	exports: [
-		FilterStatusPipe,
-		LocalDateParse
-	]
+	exports: [FilterStatusPipe, LocalDateParse]
 })
-export class AgentDashboardModule { }
+export class AgentDashboardModule {}

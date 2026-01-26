@@ -31,4 +31,4 @@ import { ImageViewerService } from './image-viewer.service';
 	exports: [ImageViewerComponent],
 	providers: [NbDialogService, ImageViewerService, ImageCacheService, StorageService, Store]
 })
-export class ImageViewerModule { }
+export class ImageViewerModule {}

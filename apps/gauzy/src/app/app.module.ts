@@ -117,14 +117,14 @@ const THIRD_PARTY_MODULES = [
 
 	...(environment.POSTHOG_ENABLED && environment.POSTHOG_KEY && environment.POSTHOG_KEY !== 'DOCKER_POSTHOG_KEY'
 		? [
-			PostHogModule.forRoot({
-				apiKey: environment.POSTHOG_KEY,
-				options: {
-					api_host: environment.POSTHOG_HOST,
-					capture_pageview: true
-				}
-			})
-		]
+				PostHogModule.forRoot({
+					apiKey: environment.POSTHOG_KEY,
+					options: {
+						api_host: environment.POSTHOG_HOST,
+						capture_pageview: true
+					}
+				})
+		  ]
 		: [])
 ];
 
@@ -306,5 +306,5 @@ export function featureToggleLoaderFactory(provider: FeatureService, store: Stor
 				store.featureToggles = features || [];
 				return features;
 			})
-			.catch(() => { });
+			.catch(() => {});
 }

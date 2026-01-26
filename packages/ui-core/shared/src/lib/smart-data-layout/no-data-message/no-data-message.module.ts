@@ -9,4 +9,4 @@ import { NoDataMessageComponent } from './no-data-message.component';
 	declarations: [NoDataMessageComponent],
 	exports: [NoDataMessageComponent]
 })
-export class NoDataMessageModule { }
+export class NoDataMessageModule {}
