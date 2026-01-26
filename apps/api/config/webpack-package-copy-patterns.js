@@ -64,13 +64,8 @@ function readPackageJson(filePath) {
  * @returns {boolean} True if package should be skipped
  */
 function shouldSkipPackage(packageName) {
-	const lowerName = packageName.toLowerCase();
-	for (const pattern of SKIP_PACKAGES) {
-		if (lowerName.includes(pattern)) {
-			return true;
-		}
-	}
-	return false;
+	return SKIP_PACKAGES.has(packageName.toLowerCase());
+}
 }
 
 /**
