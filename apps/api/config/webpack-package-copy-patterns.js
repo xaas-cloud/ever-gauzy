@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 // Directories to skip during scanning
 const SKIP_DIRS = new Set([
@@ -66,6 +66,66 @@ function readPackageJson(filePath) {
 function shouldSkipPackage(packageName) {
 	return SKIP_PACKAGES.has(packageName.toLowerCase());
 }
+
+/**
+ * Check if a directory entry should be skipped during scanning
+ * @param {fs.Dirent} entry - Directory entry
+ * @returns {boolean} True if entry should be skipped
+ */
+function shouldSkipEntry(entry) {
+	return (
+		entry.name.startsWith('.') ||
+		SKIP_DIRS.has(entry.name) ||
+		entry.isSymbolicLink?.() ||
+		!entry.isDirectory()
+	);
+}
+
+/**
+ * Get directory entries safely, returning empty array on error
+ * @param {string} dir - Directory path
+ * @returns {fs.Dirent[]} Array of directory entries
+ */
+function getDirectoryEntries(dir) {
+	try {
+		return fs.readdirSync(dir, { withFileTypes: true });
+	} catch {
+		return [];
+	}
+}
+
+/**
+ * Process a package directory and add it to patterns if valid
+ * @param {string} fullPath - Full path to package directory
+ * @param {string} packageJsonPath - Path to package.json
+ * @param {string} targetNodeModulesDir - Target node_modules directory
+ * @param {Array} patterns - Array to add patterns to
+ * @returns {number} 1 if package was skipped, 0 otherwise
+ */
+function processPackageDirectory(fullPath, packageJsonPath, targetNodeModulesDir, patterns) {
+	const packageJson = readPackageJson(packageJsonPath);
+	if (!packageJson?.name) {
+		return 0;
+	}
+
+	const packageName = (packageJson.name || '').split('/').pop() || '';
+	if (!packageName) {
+		return 0;
+	}
+
+	if (shouldSkipPackage(packageName)) {
+		return 1;
+	}
+
+	patterns.push({
+		from: fullPath,
+		to: path.join(targetNodeModulesDir, packageName),
+		globOptions: {
+			ignore: ['**/node_modules/**']
+		}
+	});
+
+	return 0;
 }
 
 /**
@@ -97,27 +157,13 @@ function getCopyPatterns(distPackagesDir, targetNodeModulesDir) {
 			return;
 		}
 
-		let entries;
-		try {
-			// Use withFileTypes to get directory info in single call (more efficient)
-			entries = fs.readdirSync(dir, { withFileTypes: true });
-		} catch {
-			// Skip unreadable directories
+		const entries = getDirectoryEntries(dir);
+		if (entries.length === 0) {
 			return;
 		}
 
 		for (const entry of entries) {
-			// Skip hidden directories and common non-package directories
-			if (entry.name.startsWith('.') || SKIP_DIRS.has(entry.name)) {
-				continue;
-			}
-
-			// Skip symlinks to prevent circular references
-			if (entry.isSymbolicLink?.()) {
-				continue;
-			}
-
-			if (!entry.isDirectory()) {
+			if (shouldSkipEntry(entry)) {
 				continue;
 			}
 
@@ -126,28 +172,12 @@ function getCopyPatterns(distPackagesDir, targetNodeModulesDir) {
 
 			// Check if this directory is a package
 			if (fs.existsSync(packageJsonPath)) {
-				// Read and parse package.json only once
-				const packageJson = readPackageJson(packageJsonPath);
-
-				if (packageJson?.name) {
-					const packageName = (packageJson.name || '').split('/').pop() || '';
-
-					// Skip UI packages not needed for API
-					if (shouldSkipPackage(packageName)) {
-						skippedCount++;
-						continue;
-					}
-
-					if (packageName) {
-						patterns.push({
-							from: fullPath,
-							to: path.join(targetNodeModulesDir, packageName),
-							globOptions: {
-								ignore: ['**/node_modules/**']
-							}
-						});
-					}
-				}
+				skippedCount += processPackageDirectory(
+					fullPath,
+					packageJsonPath,
+					targetNodeModulesDir,
+					patterns
+				);
 				// Don't recurse into package directories
 				continue;
 			}
