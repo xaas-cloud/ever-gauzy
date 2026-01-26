@@ -265,7 +265,7 @@ export async function preBootstrapApplicationConfig(applicationConfig: Partial<A
 	const config = await preBootstrapPluginConfigurations(getConfig());
 
 	// Log the current database configuration (for debugging or informational purposes)
-	await logDBConfig(config);
+	logDBConfig(config);
 
 	// Register custom entity fields for Type ORM
 	await registerTypeOrmCustomFields(config);
@@ -343,6 +343,7 @@ export async function preBootstrapRegisterEntities(
 		return registeredEntities;
 	} catch (error) {
 		console.log(chalk.red('Error registering entities:'), error);
+		throw error;
 	}
 }
 
@@ -388,6 +389,7 @@ async function preBootstrapRegisterSubscribers(
 		return registeredSubscribers;
 	} catch (error) {
 		console.log(chalk.red('Error registering subscribers:'), error);
+		throw error;
 	}
 }
 
@@ -440,7 +442,7 @@ export function getMigrationsConfig() {
  * Logs the current database configuration for debugging or informational purposes.
  * Excludes entities and subscribers arrays to keep the output readable.
  */
-async function logDBConfig(config: ApplicationPluginConfig): Promise<void> {
+function logDBConfig(config: ApplicationPluginConfig): void {
 	// Destructure to exclude entities and subscribers from the log output
 	const { entities, subscribers, ...dbConfigWithoutEntities } = config.dbConnectionOptions;
 	console.log(chalk.green(`DB Config: ${JSON.stringify(dbConfigWithoutEntities)}`));
