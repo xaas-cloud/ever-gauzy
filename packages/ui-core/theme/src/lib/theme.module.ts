@@ -121,7 +121,7 @@ const EXPORT_IMPORT = [ThemeSidebarModule, MatRippleModule];
 
 @NgModule({
 	imports: [CommonModule, RouterModule, ...EXPORT_IMPORT, ...NB_MODULES, ...MODULES],
-	exports: [...EXPORT_IMPORT, ...PIPES, ...COMPONENTS],
+	exports: [...EXPORT_IMPORT, ...PIPES, ...COMPONENTS, NbIconModule, NbTablerIconsModule],
 	declarations: [...COMPONENTS, ...PIPES],
 	providers: [
 		SelectorService,

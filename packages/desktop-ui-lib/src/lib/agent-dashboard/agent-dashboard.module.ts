@@ -31,7 +31,7 @@ import {
 	NbRouteTabsetModule,
 	NbDialogModule,
 } from '@nebular/theme';
-
+import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 import { AgentDashboardComponent } from './agent-dashboard.component';
 import { LogsPageComponent } from './logs/logs.component';
 import { SyncPageComponent } from './activity-sync/activity-sync.component';
@@ -43,9 +43,9 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 
 @NgModule({
 	declarations: [
-		AgentDashboardComponent, 
-		LogsPageComponent, 
-		SyncPageComponent, 
+		AgentDashboardComponent,
+		LogsPageComponent,
+		SyncPageComponent,
 		StatusBadgeComponent,
 		ActivitySyncDetailModalComponent
 	],
@@ -61,6 +61,7 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 		NbSidebarModule.forRoot(),
 		NbMenuModule,
 		NbIconModule,
+		NbTablerIconsModule,
 		NbButtonModule,
 		NbCardModule,
 		NbActionsModule,
