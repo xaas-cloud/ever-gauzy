@@ -14,8 +14,7 @@ export const createCategories = async (
 
 	for await (const organization of organizations) {
 		for await (const seedProductCategory of categories) {
-			const { category } = seedProductCategory;
-			const image = faker.image.urlLoremFlickr({ category });
+			const image = faker.image.url();
 
 			const newCategory = new ProductCategory();
 			newCategory.imageUrl = image;
@@ -53,8 +52,7 @@ export const createRandomProductCategories = async (
 		const organizations = tenantOrganizationsMap.get(tenant);
 		for await (const organization of organizations) {
 			for (const seedProductCategory of categories) {
-				const { category } = seedProductCategory;
-				const image = faker.image.urlLoremFlickr({ category });
+				const image = faker.image.url();
 
 				const newCategory = new ProductCategory();
 				newCategory.imageUrl = image;

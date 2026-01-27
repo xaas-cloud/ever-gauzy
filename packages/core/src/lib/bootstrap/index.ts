@@ -190,7 +190,7 @@ export async function bootstrap(pluginConfig?: Partial<ApplicationPluginConfig>)
 		}
 
 		if (env.demo) {
-			appService.executeDemoSeed(); // Seed demo data if in demo mode
+			appService.seedDemoIfEmpty(); // Seed demo data if in demo mode
 		}
 	});
 
