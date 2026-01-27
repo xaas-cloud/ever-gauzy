@@ -8,6 +8,7 @@ export class MikroOrmUserRepository extends MikroOrmBaseEntityRepository<User> {
 	constructor(em: EntityManager) {
 		super(em, User);
 	}
+
     /**
      * Checks if an entity with the given email already exists in the database.
      * This method uses findOne to efficiently check existence by stopping after
