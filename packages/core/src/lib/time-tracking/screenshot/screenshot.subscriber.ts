@@ -31,7 +31,7 @@ export class ScreenshotSubscriber extends BaseEntityEventSubscriber<Screenshot> 
 		if (em instanceof TypeOrmEntityManager) {
 			return em.connection?.options || getConfig().dbConnectionOptions;
 		}
-		return getConfig().dbConnectionOptions;
+		return getConfig().dbMikroOrmConnectionOptions;
 	}
 
 	/**
