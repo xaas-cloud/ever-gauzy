@@ -24,6 +24,7 @@ import { DesktopDirectiveModule } from '../directives/desktop-directive.module';
 import { LanguageModule } from '../language/language.module';
 import { SslModule } from '../settings/ssl';
 import { SetupService } from './setup.service';
+import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 
 @NgModule({
 	declarations: [SetupComponent],
@@ -39,8 +40,8 @@ import { SetupService } from './setup.service';
 		NbSpinnerModule,
 		NbCheckboxModule,
 		NbIconModule,
+		NbTablerIconsModule,
 		NbStepperModule,
-		NbIconModule,
 		NbRadioModule,
 		NbProgressBarModule,
 		NbFormFieldModule,
@@ -52,4 +53,4 @@ import { SetupService } from './setup.service';
 	exports: [SetupComponent],
 	providers: [SetupService, NbDialogService]
 })
-export class SetupModule {}
+export class SetupModule { }

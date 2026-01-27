@@ -151,6 +151,7 @@ import {
 } from './component/plugin-marketplace/shared';
 import { UploadSelectionComponent } from './component/upload-selection/upload-selection.component';
 import { PluginRoutingModule } from './plugin-routing.module';
+import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 
 @NgModule({
 	declarations: [
@@ -220,6 +221,7 @@ import { PluginRoutingModule } from './plugin-routing.module';
 		DesktopDirectiveModule,
 		NoDataMessageModule,
 		NbIconModule,
+		NbTablerIconsModule,
 		TranslateModule.forChild(),
 		RouterModule,
 		NbBadgeModule,
@@ -313,4 +315,4 @@ import { PluginRoutingModule } from './plugin-routing.module';
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PluginsModule {}
+export class PluginsModule { }

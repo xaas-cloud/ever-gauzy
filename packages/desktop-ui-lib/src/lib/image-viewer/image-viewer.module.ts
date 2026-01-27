@@ -13,6 +13,7 @@ import { ImageCacheService, StorageService, Store } from '../services';
 import { PipeModule } from '../time-tracker/pipes/pipe.module';
 import { ImageViewerComponent } from './image-viewer.component';
 import { ImageViewerService } from './image-viewer.service';
+import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 
 @NgModule({
 	declarations: [ImageViewerComponent],
@@ -21,6 +22,7 @@ import { ImageViewerService } from './image-viewer.service';
 		NbLayoutModule,
 		NbCardModule,
 		NbIconModule,
+		NbTablerIconsModule,
 		NbDialogModule,
 		NbButtonModule,
 		NbSpinnerModule,

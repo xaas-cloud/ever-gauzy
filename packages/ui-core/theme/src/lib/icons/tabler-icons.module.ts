@@ -604,6 +604,7 @@ export class NbTablerIconsModule {
 	}
 
 	registerTablerPack() {
+		// We register this pack as 'eva' to maintain backward compatibility with existing usages of the Eva icon pack in templates and configuration.
 		this.iconLibraries.registerSvgPack('eva', icons);
 		this.iconLibraries.setDefaultPack('eva');
 	}
