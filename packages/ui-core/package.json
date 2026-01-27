@@ -68,6 +68,7 @@
 		"@ngx-translate/http-loader": "^16.0.1",
 		"@sentry/angular": "9.43.0",
 		"@sentry/core": "9.43.0",
+		"angular-tabler-icons": "^3.26.0",
 		"angular2-smart-table": "^4.1.1",
 		"bootstrap": "^4.3.1",
 		"camelcase": "^9.0.0",
