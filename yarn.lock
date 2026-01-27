@@ -8770,6 +8770,20 @@
   resolved "https://registry.yarnpkg.com/@nestjsx/util/-/util-5.0.0-alpha.3.tgz#d1182280e9254f0d335efa369da17fa25d260135"
   integrity sha512-UTYIxtyx80M42gOZ0VIInSiOLn78P6k1BCziiN8gE3FglzivQ1RGvPpmsRwioYEWG27gOgnMwOQnXv8Zbq8dzQ==
 
+"@ng-icons/core@^32.5.0":
+  version "32.5.0"
+  resolved "https://registry.yarnpkg.com/@ng-icons/core/-/core-32.5.0.tgz#a9405a842a7c169751a7848bdd66d811ed42fb84"
+  integrity sha512-6zAXQ5vryaclOWEVzprFJjJAW6NSOl0eBm+I6BwmcMk+vR+1vHU82DNpNTbUE9Wn4CGXEP1yd+S+pTKIaRTXjg==
+  dependencies:
+    tslib "^2.3.0"
+
+"@ng-icons/tabler-icons@^32.4.0":
+  version "32.4.0"
+  resolved "https://registry.yarnpkg.com/@ng-icons/tabler-icons/-/tabler-icons-32.4.0.tgz#df5ea603de2afff6f4d5d846d6504286cd289f00"
+  integrity sha512-fIH3RwU7a0R7xyp6AyJnYoUmeLYeM7yembjY1J40nrzCUQ6zLAR8iLgwgHf2qh9+GzJoWI6Q5w6K8t/jwEUpgA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ng-maps/core@^8.0.0":
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@ng-maps/core/-/core-8.0.0.tgz#74195ea652a6e0f02ae45ee16142591c2dab666a"
@@ -16570,13 +16584,6 @@ angular-eslint@^20.0.6:
     "@angular-eslint/template-parser" "20.7.0"
     "@typescript-eslint/types" "^8.0.0"
     "@typescript-eslint/utils" "^8.0.0"
-
-angular-tabler-icons@^3.26.0:
-  version "3.26.0"
-  resolved "https://registry.yarnpkg.com/angular-tabler-icons/-/angular-tabler-icons-3.26.0.tgz#892514ab3d42120443a53a114305c7dbcd372c57"
-  integrity sha512-gOvELHvz9TgOXAVq1YDqPQ8Z+0kII4IETzKn95x//zdZ5//3RekpeAJE2go3zczXaxoy44frmea7i7mr40BDTw==
-  dependencies:
-    tslib "^2.8.1"
 
 angular2-smart-table@^4.1.1:
   version "4.1.1"
