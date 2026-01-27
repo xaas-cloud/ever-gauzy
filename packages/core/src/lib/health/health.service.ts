@@ -9,7 +9,7 @@ import {
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, QueryRunner } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import * as path from 'path';
+import * as path from 'node:path';
 import { getORMType, MultiORM, MultiORMEnum } from '../core/utils';
 import { CacheHealthIndicator } from './indicators/cache-health.indicator';
 import { RedisHealthIndicator } from './indicators/redis-health.indicator';
@@ -57,82 +57,16 @@ export class HealthService {
 		if (this.checkDb) {
 			checks.push(async () => {
 				console.log(`Checking ${uniqueLabel} Database...`);
-				switch (this.ormType) {
-					case MultiORMEnum.TypeORM:
-						let queryRunner: QueryRunner;
-						try {
-							let message: string;
 
-							if (this.checkDbWithTerminus) {
-								queryRunner = this.dataSource.createQueryRunner();
-
-								const resDatabase = await this.typeOrmHealthIndicator.pingCheck('database', {
-									connection: queryRunner.connection,
-									timeout: 60000
-								});
-
-								message = resDatabase?.database?.message;
-							}
-
-							const usersCount = await this.typeOrmUserRepository.count();
-
-							console.log(`Database (TypeORM) users count ${uniqueLabel} is: ${usersCount}`);
-
-							console.log(`Database (TypeORM) check ${uniqueLabel} completed`);
-
-							return {
-								database: {
-									status: 'up',
-									message: message
-								}
-							};
-						} catch (err) {
-							console.error(`Database (TypeORM) check ${uniqueLabel} failed`, err);
-							return {
-								database: {
-									status: 'down',
-									message: err.message
-								}
-							};
-						} finally {
-							if (this.checkDbWithTerminus && queryRunner) await queryRunner.release();
-						}
-					case MultiORMEnum.MikroORM:
-						try {
-							let message: string;
-
-							if (this.checkDbWithTerminus) {
-								const resDatabase = await this.mikroOrmHealthIndicator.pingCheck('database', {
-									timeout: 60000
-								});
-
-								message = resDatabase?.database?.message;
-							}
-
-							const usersCount = await this.mikroOrmUserRepository.count();
-
-							console.log(`Database (MikroORM) users count ${uniqueLabel} is: ${usersCount}`);
-
-							console.log(`Database (MikroORM) check ${uniqueLabel} completed`);
-
-							return {
-								database: {
-									status: 'up',
-									message: message
-								}
-							};
-						} catch (err) {
-							console.error(`Database (MikroORM) check ${uniqueLabel} failed`, err);
-							return {
-								database: {
-									status: 'down',
-									message: err.message
-								}
-							};
-						}
-					default:
-						throw new Error('ORM not supported');
+				if (this.ormType === MultiORMEnum.TypeORM) {
+					return await this.checkDatabaseTypeOrm(uniqueLabel);
 				}
+
+				if (this.ormType === MultiORMEnum.MikroORM) {
+					return await this.checkDatabaseMikroOrm(uniqueLabel);
+				}
+
+				throw new Error('ORM not supported');
 			});
 		}
 
@@ -188,5 +122,90 @@ export class HealthService {
 		console.log(`Health check ${uniqueLabel} result: ${JSON.stringify(result)}`);
 
 		return result;
+	}
+
+	/**
+	 * Checks the health status of the TypeORM database.
+	 *
+	 * @param {string} uniqueLabel - The unique label for the health check.
+	 * @returns {Promise<HealthCheckResult>} - A promise resolving to the health check result.
+	 */
+	private async checkDatabaseTypeOrm(uniqueLabel: string) {
+		let queryRunner: QueryRunner;
+
+		try {
+			let message: string;
+
+			if (this.checkDbWithTerminus) {
+				queryRunner = this.dataSource.createQueryRunner();
+
+				const resDatabase = await this.typeOrmHealthIndicator.pingCheck('database', {
+					connection: queryRunner.connection,
+					timeout: 60000
+				});
+
+				message = resDatabase?.database?.message;
+			}
+
+			const usersCount = await this.typeOrmUserRepository.count();
+			console.log(`Database (TypeORM) users count ${uniqueLabel} is: ${usersCount}`);
+			console.log(`Database (TypeORM) check ${uniqueLabel} completed`);
+
+			return {
+				database: {
+					status: 'up',
+					message
+				}
+			};
+		} catch (err) {
+			console.error(`Database (TypeORM) check ${uniqueLabel} failed`, err);
+			return {
+				database: {
+					status: 'down',
+					message: err.message
+				}
+			};
+		} finally {
+			if (this.checkDbWithTerminus && queryRunner) await queryRunner.release();
+		}
+	}
+
+	/**
+	 * Checks the health status of the MikroORM database.
+	 *
+	 * @param {string} uniqueLabel - The unique label for the health check.
+	 * @returns {Promise<HealthCheckResult>} - A promise resolving to the health check result.
+	 */
+	private async checkDatabaseMikroOrm(uniqueLabel: string) {
+		try {
+			let message: string;
+
+			if (this.checkDbWithTerminus) {
+				const resDatabase = await this.mikroOrmHealthIndicator.pingCheck('database', {
+					timeout: 60000
+				});
+
+				message = resDatabase?.database?.message;
+			}
+
+			const usersCount = await this.mikroOrmUserRepository.count();
+			console.log(`Database (MikroORM) users count ${uniqueLabel} is: ${usersCount}`);
+			console.log(`Database (MikroORM) check ${uniqueLabel} completed`);
+
+			return {
+				database: {
+					status: 'up',
+					message
+				}
+			};
+		} catch (err) {
+			console.error(`Database (MikroORM) check ${uniqueLabel} failed`, err);
+			return {
+				database: {
+					status: 'down',
+					message: err.message
+				}
+			};
+		}
 	}
 }

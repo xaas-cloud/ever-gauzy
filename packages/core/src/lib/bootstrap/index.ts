@@ -190,7 +190,9 @@ export async function bootstrap(pluginConfig?: Partial<ApplicationPluginConfig>)
 		}
 
 		if (env.demo) {
-			appService.seedDemoIfEmpty(); // Seed demo data if in demo mode
+			seedDemoIfEmpty(app, appService).catch((error) => {
+				console.error('Demo seed failed:', error);
+			});
 		}
 	});
 
@@ -228,6 +230,29 @@ function handleUnhandledRejection(reason: any, promise: Promise<any>) {
 export async function registerPluginConfig(config: Partial<ApplicationPluginConfig>): Promise<ApplicationPluginConfig> {
 	// Apply pre-bootstrap operations and return the updated configuration
 	return await preBootstrapApplicationConfig(config);
+}
+
+/**
+ * Run demo seed after the HTTP server starts.
+ * When MikroORM is selected, wrap in a RequestContext so repositories use a scoped EntityManager.
+ */
+async function seedDemoIfEmpty(app: INestApplication, appService: AppService): Promise<void> {
+	// Get the ORM type
+	const ormType = getORMType();
+
+	// Seed DB if empty based on the ORM type
+	if (ormType === MultiORMEnum.MikroORM) {
+		// Get the MikroORM instance
+		const mikroOrm = app.get(MikroORM);
+
+		// Seed DB if empty inside a MikroORM RequestContext
+		await RequestContext.create(mikroOrm.em, async () => {
+			await appService.seedDemoIfEmpty();
+		});
+	} else {
+		// Seed DB if empty for TypeORM
+		await appService.seedDemoIfEmpty();
+	}
 }
 
 /**
