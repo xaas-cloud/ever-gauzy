@@ -315,4 +315,4 @@ import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PluginsModule { }
+export class PluginsModule {}

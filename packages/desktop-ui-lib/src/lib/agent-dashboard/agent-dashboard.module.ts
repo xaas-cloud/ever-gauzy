@@ -29,7 +29,7 @@ import {
 	NbCheckboxModule,
 	NbAlertModule,
 	NbRouteTabsetModule,
-	NbDialogModule,
+	NbDialogModule
 } from '@nebular/theme';
 import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 import { AgentDashboardComponent } from './agent-dashboard.component';
@@ -85,9 +85,6 @@ import { ActivitySyncDetailModalComponent } from './activity-sync/activity-sync-
 		TasksModule,
 		Angular2SmartTableModule
 	],
-	exports: [
-		FilterStatusPipe,
-		LocalDateParse
-	]
+	exports: [FilterStatusPipe, LocalDateParse]
 })
-export class AgentDashboardModule { }
+export class AgentDashboardModule {}

@@ -24,4 +24,4 @@ import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 	],
 	providers: [AlwaysOnService]
 })
-export class AlwaysOnModule { }
+export class AlwaysOnModule {}

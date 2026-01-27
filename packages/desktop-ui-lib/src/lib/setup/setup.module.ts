@@ -53,4 +53,4 @@ import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 	exports: [SetupComponent],
 	providers: [SetupService, NbDialogService]
 })
-export class SetupModule { }
+export class SetupModule {}
