@@ -296,7 +296,7 @@ export class EmployeeSubscriber extends BaseEntityEventSubscriber<Employee> {
 
 			// Count total employees for the organization
 			const totalEmployees = await this.countEmployees(em, organizationId, tenantId, ormType);
-			console.log('EmployeeSubscriber: Total employees', totalEmployees);
+			// Count total employees for the organization
 
 			// Update the organization with the calculated total employees
 			await this.updateOrganizationEmployeeCount(em, organizationId, tenantId, totalEmployees, ormType);
