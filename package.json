@@ -641,7 +641,7 @@
 		"cloc": "^2.7.0",
 		"codecov": "^3.8.3",
 		"commitizen": "^4.2.1",
-		"concurrently": "^5.3.0",
+		"concurrently": "^9.2.1",
 		"conventional-changelog": "^3.1.23",
 		"conventional-changelog-cli": "^2.1.0",
 		"copy-webpack-plugin": "^13.0.0",
