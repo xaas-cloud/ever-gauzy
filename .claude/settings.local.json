@@ -10,7 +10,9 @@
       "Bash(gh pr create:*)",
       "Bash(yarn install)",
       "Bash(yarn why:*)",
-      "Bash(yarn list:*)"
+      "Bash(yarn list:*)",
+      "Bash(ls:*)",
+      "Bash(done)"
     ]
   }
 }
