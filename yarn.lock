@@ -8694,12 +8694,12 @@
   dependencies:
     tslib "^2.0.0"
 
-"@ng-select/ng-select@^14.9.0":
-  version "14.9.0"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-14.9.0.tgz#8f9f09d37bd856f17dd0af06f1c485108b180658"
-  integrity sha512-f/E3EaSVwdKmwvZL43nS961bGaXR90F0Gtb8vA+ub8Hfwqjr1NTI6X7+yu5iMkqfy5ZW5cJdoGvo+kv8zcAkjQ==
+"@ng-select/ng-select@^20.7.0":
+  version "20.7.0"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-20.7.0.tgz#0fa734d4ee69c8ab3453073ded3c57ee9aa013f2"
+  integrity sha512-tOAhUnb4LFjTnn9gi6e6tSrUDi1GqCzjwnubBIxxa2XFHXqGOjYlqIMkPcSRByF4G9olzdZM38nLUtZOO3YKqg==
   dependencies:
-    tslib "^2.3.1"
+    tslib "^2.8.1"
 
 "@ngneat/effects-ng@3.1.4":
   version "3.1.4"
@@ -41357,7 +41357,7 @@ typeorm@^0.3.28:
     uuid "^11.1.0"
     yargs "^17.7.2"
 
-typescript@5.9.3, typescript@^5.4.3, typescript@^5.9.3, typescript@~5.9.2:
+typescript@5.9.3, typescript@^5.4.3, typescript@^5.8.0, typescript@~5.9.2:
   version "5.9.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.9.3.tgz#5b4f59e15310ab17a216f5d6cf53ee476ede670f"
   integrity sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==
