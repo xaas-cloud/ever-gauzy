@@ -29,8 +29,7 @@
 	},
 	"dependencies": {
 		"posthog-js": "^1.236.2",
-		"rxjs": "^7.8.2",
-		"tslib": "^2.6.2"
+		"rxjs": "^7.8.2"
 	},
 	"devDependencies": {
 		"@types/jest": "29.5.14",
