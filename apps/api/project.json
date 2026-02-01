@@ -16,7 +16,7 @@
 		"build": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": ["{options.outputPath}"],
-			"defaultConfiguration": "production",
+			"defaultConfiguration": "development",
 			"options": {
 				"target": "node",
 				"compiler": "swc",
@@ -83,7 +83,7 @@
 		"desktop-api": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": ["{options.outputPath}"],
-			"defaultConfiguration": "production",
+			"defaultConfiguration": "development",
 			"options": {
 				"target": "node",
 				"compiler": "swc",
@@ -122,7 +122,7 @@
 		"server-api": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": ["{options.outputPath}"],
-			"defaultConfiguration": "production",
+			"defaultConfiguration": "development",
 			"options": {
 				"target": "node",
 				"compiler": "swc",
@@ -161,7 +161,7 @@
 		"gauzy-server-api": {
 			"executor": "@nx/webpack:webpack",
 			"outputs": ["{options.outputPath}"],
-			"defaultConfiguration": "production",
+			"defaultConfiguration": "development",
 			"options": {
 				"target": "node",
 				"compiler": "swc",
