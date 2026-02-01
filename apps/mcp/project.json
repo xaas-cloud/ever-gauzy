@@ -18,7 +18,11 @@
 				"isolatedConfig": true
 			},
 			"configurations": {
-				"development": {},
+				"development": {
+					"optimization": false,
+					"extractLicenses": false,
+					"sourceMap": true
+				},
 				"production": {
 					"optimization": true,
 					"extractLicenses": true,
