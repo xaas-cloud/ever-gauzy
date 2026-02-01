@@ -137,6 +137,7 @@
 	"targetDefaults": {
 		"build": {
 			"cache": true,
+			"dependsOn": ["^build"],
 			"inputs": ["production", "^production"]
 		},
 		"lint": {
