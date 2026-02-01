@@ -282,7 +282,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [warp-windows-latest-x64-8x]
+        os: [self-hosted, Windows, X64]
 
     steps:
       - name: Check out Git repository
