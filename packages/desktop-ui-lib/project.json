@@ -5,7 +5,7 @@
 	"prefix": "lib",
 	"projectType": "library",
 	"tags": [],
-	"implicitDependencies": ["ui-core"],
+	"implicitDependencies": ["ui-core", "ui-config"],
 	"generators": {
 		"@nx/angular:component": {
 			"style": "scss",

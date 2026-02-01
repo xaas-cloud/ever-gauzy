@@ -188,6 +188,7 @@
 		}
 	},
 	"useInferencePlugins": false,
+	"useDaemon": true,
 	"defaultBase": "develop",
 	"release": {
 		"version": {
