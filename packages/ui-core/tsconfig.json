@@ -10,7 +10,8 @@
 		"noFallthroughCasesInSwitch": true,
 		"baseUrl": ".",
 		"paths": {
-			"@gauzy/ui-core/*": ["./*/src/index.ts"]
+			"@gauzy/ui-core/*": ["./*/src/index.ts"],
+			"@gauzy/ui-config": ["../ui-config/src/index.ts"]
 		}
 	},
 	"files": [],
