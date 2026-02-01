@@ -33,9 +33,9 @@ ARG DB_LOGGING
 ARG DB_ORM
 ARG DB_SYNCHRONIZE
 
-# Proxy Configuration
 ARG MCP_TRUSTED_PROXIES
 ARG NX_CLOUD_ACCESS_TOKEN
+ARG NX_BRANCH
 
 
 FROM node:24.12.0-alpine3.23 AS dependencies
@@ -91,10 +91,12 @@ COPY --chown=node:node nx.json lerna.json ./
 
 ARG NODE_OPTIONS
 ARG NX_CLOUD_ACCESS_TOKEN
+ARG NX_BRANCH
 
 # Enable NX Cloud caching for faster builds
 ENV NX_NO_CLOUD=false
 ENV NX_CLOUD_ACCESS_TOKEN=${NX_CLOUD_ACCESS_TOKEN}
+ENV NX_BRANCH=${NX_BRANCH}
 ENV CI=true
 
 ENV NODE_OPTIONS=${NODE_OPTIONS:-"--max-old-space-size=30000"}
