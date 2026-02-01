@@ -22,7 +22,7 @@
 					"tsConfig": "packages/ui-auth/tsconfig.lib.json"
 				}
 			},
-			"defaultConfiguration": "production"
+			"defaultConfiguration": "development"
 		},
 		"test": {
 			"executor": "@nx/jest:jest",

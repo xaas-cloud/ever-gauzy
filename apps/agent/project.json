@@ -97,7 +97,7 @@
 					"sourceMap": true
 				}
 			},
-			"defaultConfiguration": "production"
+			"defaultConfiguration": "development"
 		},
 		"serve": {
 			"executor": "@angular-builders/custom-webpack:dev-server",

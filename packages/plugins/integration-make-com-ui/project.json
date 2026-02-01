@@ -5,7 +5,7 @@
 	"prefix": "lib",
 	"projectType": "library",
 	"tags": [],
-	"implicitDependencies": ["ui-core"],
+	"implicitDependencies": ["ui-core", "ui-config"],
 	"targets": {
 		"build": {
 			"executor": "@nx/angular:package",
@@ -22,7 +22,7 @@
 					"tsConfig": "packages/plugins/integration-make-com-ui/tsconfig.lib.json"
 				}
 			},
-			"defaultConfiguration": "production"
+			"defaultConfiguration": "development"
 		},
 		"test": {
 			"executor": "@nx/jest:jest",
