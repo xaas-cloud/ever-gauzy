@@ -27,7 +27,11 @@
 				"webpackConfig": "apps/desktop-api/config/custom-webpack.config.js"
 			},
 			"configurations": {
-				"development": {},
+				"development": {
+					"optimization": false,
+					"extractLicenses": false,
+					"sourceMap": true
+				},
 				"production": {
 					"optimization": false,
 					"extractLicenses": true,

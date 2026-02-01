@@ -144,6 +144,11 @@
 				"webpackConfig": "apps/api/config/custom-webpack.config.js"
 			},
 			"configurations": {
+				"development": {
+					"optimization": false,
+					"extractLicenses": false,
+					"sourceMap": true
+				},
 				"production": {
 					"optimization": true,
 					"extractLicenses": false,
@@ -183,6 +188,11 @@
 				"webpackConfig": "apps/api/config/custom-webpack.config.js"
 			},
 			"configurations": {
+				"development": {
+					"optimization": false,
+					"extractLicenses": false,
+					"sourceMap": true
+				},
 				"production": {
 					"optimization": true,
 					"extractLicenses": false,

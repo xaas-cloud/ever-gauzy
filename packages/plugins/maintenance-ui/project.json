@@ -5,11 +5,12 @@
 	"prefix": "lib",
 	"projectType": "library",
 	"tags": [],
-	"implicitDependencies": ["ui-core", "ui-config"],
+	"implicitDependencies": ["contracts", "ui-config", "ui-core"],
 	"targets": {
 		"build": {
 			"executor": "@nx/angular:package",
 			"outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+			"dependsOn": ["^build"],
 			"options": {
 				"project": "packages/plugins/maintenance-ui/ng-package.json",
 				"tsConfig": "packages/plugins/maintenance-ui/tsconfig.json"
