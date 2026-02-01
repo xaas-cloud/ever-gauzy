@@ -280,14 +280,8 @@ ENV DEMO=${DEMO:-false}
 
 ENV IS_DOCKER=true
 
-# Temporary disable caching in NX Cloud for builds
-ENV NX_NO_CLOUD=true
-
-RUN if [ "$NODE_ENV" = "production" ]; then \
-    yarn build:package:api:docker; \
-    else \
-    yarn build:package:api:dev:docker; \
-    fi
+# Enable NX Cloud caching for faster builds
+ENV NX_NO_CLOUD=false
 
 RUN if [ "$NODE_ENV" = "production" ]; then \
     yarn build:api:prod:docker; \

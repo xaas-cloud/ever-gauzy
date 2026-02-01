@@ -40,8 +40,8 @@ for (const config of pluginTsconfigs) {
 			if (gauzyPaths.length > 0) {
 				// Check if all gauzy paths point to dist
 				const allDistPaths = gauzyPaths.every((k) => {
-					const pathVals = paths[k];
-					return pathVals.some((p) => p.includes('/dist/'));
+					const pathValues = paths[k];
+					return pathValues.some((p) => p.includes('/dist/'));
 				});
 
 				if (allDistPaths) {
