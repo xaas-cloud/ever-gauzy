@@ -46,14 +46,16 @@
             {
                 "provider": "github",
                 "repo": "ever-gauzy-desktop",
-				"releaseType": "release"
+                "releaseType": "release",
+                "channel": "latest-x64"
             },
             {
                 "provider": "spaces",
                 "name": "ever",
                 "region": "sfo3",
                 "path": "/ever-gauzy-desktop",
-				"acl": "public-read"
+                "acl": "public-read",
+                "channel": "latest-x64"
             }
         ],
         "mac": {
