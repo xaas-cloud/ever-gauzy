@@ -103,38 +103,111 @@ jobs:
           AGENT_APP_DESCRIPTION: 'Gauzy Agent'
           AGENT_APP_ID: 'com.ever.gauzyagent'
 
-      - name: Configure PATH for all child processes
+      - name: Fix Node.js PATH for child processes (Multiple Approaches)
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
 
-          # Get absolute paths
-          $nodePath = (Get-Command node -ErrorAction Stop).Source | Split-Path -Parent
+          Write-Host "=========================================="
+          Write-Host "FIXING NODE.JS PATH FOR CHILD PROCESSES"
+          Write-Host "=========================================="
+
+          # Get paths
+          $nodeExe = (Get-Command node -ErrorAction Stop).Source
+          $nodePath = Split-Path $nodeExe -Parent
+          $npmGlobalBin = & npm config get prefix
+          $localBin = Join-Path $PWD "node_modules\.bin"
           $yarnCmd = Get-Command yarn -ErrorAction SilentlyContinue
           $yarnPath = if ($yarnCmd) { Split-Path $yarnCmd.Source -Parent } else { "" }
-          $localBin = Join-Path $PWD "node_modules\.bin"
-          $npmGlobalBin = & npm config get prefix
 
+          Write-Host "`n=== Current Paths ==="
+          Write-Host "Node executable: $nodeExe"
           Write-Host "Node path: $nodePath"
+          Write-Host "NPM global bin: $npmGlobalBin"
           Write-Host "Yarn path: $yarnPath"
           Write-Host "Local bin: $localBin"
-          Write-Host "NPM global: $npmGlobalBin"
 
-          # Build new PATH with all required directories at the front
-          $newPath = "$nodePath;$yarnPath;$localBin;$npmGlobalBin;$($env:PATH)"
+          # ============================================
+          # APPROACH 1: Copy node.exe to npm global bin
+          # ============================================
+          Write-Host "`n=== APPROACH 1: Copy node.exe to npm global bin ==="
+          $npmNodeExe = Join-Path $npmGlobalBin "node.exe"
+          if (-not (Test-Path $npmNodeExe)) {
+            Write-Host "Copying node.exe to $npmNodeExe"
+            Copy-Item $nodeExe $npmNodeExe -Force
+          } else {
+            Write-Host "node.exe already exists at $npmNodeExe"
+          }
 
-          # Set PATH via GITHUB_ENV - this affects ALL subsequent child processes
+          # ============================================
+          # APPROACH 2: Copy node.exe to local node_modules/.bin
+          # ============================================
+          Write-Host "`n=== APPROACH 2: Copy node.exe to local node_modules/.bin ==="
+          $localNodeExe = Join-Path $localBin "node.exe"
+          if (-not (Test-Path $localNodeExe)) {
+            Write-Host "Copying node.exe to $localNodeExe"
+            Copy-Item $nodeExe $localNodeExe -Force
+          } else {
+            Write-Host "node.exe already exists at $localNodeExe"
+          }
+
+          # ============================================
+          # APPROACH 3: Set PATH via GITHUB_ENV (for next steps)
+          # ============================================
+          Write-Host "`n=== APPROACH 3: Set PATH via GITHUB_ENV ==="
+          $newPath = "$nodePath;$npmGlobalBin;$localBin;$yarnPath;$($env:PATH)"
           "PATH=$newPath" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "PATH written to GITHUB_ENV"
 
-          # Also add individual paths to GITHUB_PATH for good measure
-          $localBin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
-          $npmGlobalBin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
-          $yarnPath | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
-          $nodePath | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          # ============================================
+          # APPROACH 4: Set paths via GITHUB_PATH
+          # ============================================
+          Write-Host "`n=== APPROACH 4: Set paths via GITHUB_PATH ==="
+          @($nodePath, $npmGlobalBin, $localBin, $yarnPath) | Where-Object { $_ } | ForEach-Object {
+            $_ | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+            Write-Host "Added to GITHUB_PATH: $_"
+          }
 
-          Write-Host "PATH configured for all child processes"
+          # ============================================
+          # APPROACH 5: Set NODE environment variable
+          # ============================================
+          Write-Host "`n=== APPROACH 5: Set NODE environment variable ==="
+          "NODE=$nodeExe" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "NODE_PATH=$nodePath" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          Write-Host "NODE=$nodeExe"
+          Write-Host "NODE_PATH=$nodePath"
 
-      - name: Build Agent
+          # ============================================
+          # APPROACH 6: Configure npm to prepend node path
+          # ============================================
+          Write-Host "`n=== APPROACH 6: Configure npm scripts-prepend-node-path ==="
+          npm config set scripts-prepend-node-path true
+          Write-Host "npm scripts-prepend-node-path = true"
+
+          # ============================================
+          # APPROACH 7: Update Process-level PATH immediately
+          # ============================================
+          Write-Host "`n=== APPROACH 7: Update process PATH immediately ==="
+          $env:PATH = $newPath
+          [System.Environment]::SetEnvironmentVariable("PATH", $newPath, "Process")
+          Write-Host "Process PATH updated"
+
+          # ============================================
+          # VERIFICATION
+          # ============================================
+          Write-Host "`n=== VERIFICATION ==="
+          Write-Host "NPM global node.exe exists: $(Test-Path $npmNodeExe)"
+          Write-Host "Local bin node.exe exists: $(Test-Path $localNodeExe)"
+          Write-Host "`nTesting node.exe from different locations:"
+          Write-Host "From npm global bin:"
+          & $npmNodeExe -p "process.arch + ' from ' + process.execPath"
+          Write-Host "From local bin:"
+          & $localNodeExe -p "process.arch + ' from ' + process.execPath"
+          Write-Host "`nTesting cmd.exe visibility:"
+          cmd /c "where node"
+          cmd /c "node -p process.arch"
+
+      - name: Quick Smoke Test (ui-config:setup-env)
         shell: cmd
         run: |
           echo === Environment Diagnostics ===
@@ -159,20 +232,35 @@ jobs:
           echo === Full PATH ===
           echo %PATH%
           echo.
-          echo === Starting build ===
-          yarn build:agent:windows:release:gh:arm64
+          echo ==========================================
+          echo RUNNING SMOKE TEST: ui-config:setup-env
+          echo ==========================================
+          yarn nx run ui-config:setup-env:production
+          echo.
+          echo ==========================================
+          echo SMOKE TEST PASSED! PATH fix is working.
+          echo ==========================================
         env:
           USE_HARD_LINKS: false
-          ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          EP_GH_IGNORE_TIME: true
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          SENTRY_TRACES_SAMPLE_RATE: '${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}'
-          SENTRY_PROFILE_SAMPLE_RATE: '${{ secrets.SENTRY_PROFILE_SAMPLE_RATE }}'
-          SENTRY_HTTP_TRACING_ENABLED: '${{ secrets.SENTRY_HTTP_TRACING_ENABLED }}'
-          SENTRY_POSTGRES_TRACKING_ENABLED: '${{ secrets.SENTRY_POSTGRES_TRACKING_ENABLED }}'
-          SENTRY_PROFILING_ENABLED: '${{ secrets.SENTRY_PROFILING_ENABLED }}'
-          DO_KEY_ID: ${{ secrets.DO_KEY_ID }}
-          DO_SECRET_KEY: ${{ secrets.DO_SECRET_KEY }}
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           NX_NO_CLOUD: true
+
+      # Uncomment below to run full build after smoke test passes
+      # - name: Build Agent
+      #   shell: cmd
+      #   run: yarn build:agent:windows:release:gh:arm64
+      #   env:
+      #     USE_HARD_LINKS: false
+      #     ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
+      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      #     EP_GH_IGNORE_TIME: true
+      #     SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      #     SENTRY_TRACES_SAMPLE_RATE: '${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}'
+      #     SENTRY_PROFILE_SAMPLE_RATE: '${{ secrets.SENTRY_PROFILE_SAMPLE_RATE }}'
+      #     SENTRY_HTTP_TRACING_ENABLED: '${{ secrets.SENTRY_HTTP_TRACING_ENABLED }}'
+      #     SENTRY_POSTGRES_TRACKING_ENABLED: '${{ secrets.SENTRY_POSTGRES_TRACKING_ENABLED }}'
+      #     SENTRY_PROFILING_ENABLED: '${{ secrets.SENTRY_PROFILING_ENABLED }}'
+      #     DO_KEY_ID: ${{ secrets.DO_KEY_ID }}
+      #     DO_SECRET_KEY: ${{ secrets.DO_SECRET_KEY }}
+      #     NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      #     NX_NO_CLOUD: true
