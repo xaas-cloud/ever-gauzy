@@ -10,139 +10,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release-windows-x64:
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 150
-
-    strategy:
-      matrix:
-        os: [[self-hosted, Windows, X64]]
-
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v4
-
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24.13.0
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        shell: bash
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - uses: actions/cache@v4
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-${{ runner.arch }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-${{ runner.arch }}-yarn-
-
-      - name: Install Visual Studio 2022 Build Tools (VCTools)
-        shell: powershell
-        run: |
-          choco install -y visualstudio2022buildtools --execution-timeout=21600 --package-parameters "--add Microsoft.VisualStudio.Workload.VCTools --includeRecommended --includeOptional --passive --norestart"
-
-      - name: Configure node-gyp to use VS 2022
-        shell: powershell
-        run: |
-          "GYP_MSVS_VERSION=2022" | Out-File -FilePath $env:GITHUB_ENV -Append
-          "npm_config_msvs_version=2022" | Out-File -FilePath $env:GITHUB_ENV -Append
-
-      - name: Fix node-gyp and Python
-        run: python3 -m pip install packaging setuptools
-
-      - name: Setup MSVC (VS 2022 dev env)
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
-
-      - name: Install latest version of NPM
-        run: 'npm install -g npm@11.6.2'
-
-      - name: Install globally node-gyp, ts-node and nx packages
-        run: 'npm install --quiet -g node-gyp@10.2.0 ts-node@10.9.2 nx@20.8.0'
-
-      - name: Configure npm python for node-gyp
-        shell: powershell
-        run: |
-          $py = (Get-Command python.exe).Source
-          Write-Host "python is: $py"
-          "npm_config_python=$py" | Out-File -FilePath $env:GITHUB_ENV -Append
-          "PYTHON=$py"            | Out-File -FilePath $env:GITHUB_ENV -Append
-
-      - name: Show tool versions
-        shell: powershell
-        run: |
-          node -v
-          npm -v
-          python --version
-          python -c "import sys; print(sys.executable)"
-
-      - name: Install Yarn dependencies
-        run: 'yarn install --network-timeout 1000000 --frozen-lockfile --ignore-scripts'
-
-      - name: Run Postinstall Manually
-        run: 'yarn postinstall.manual'
-
-      - name: Bump Agent version
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.agent(true))
-        env:
-          PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
-          AGENT_APP_NAME: 'gauzy-agent'
-          AGENT_APP_REPO_NAME: 'ever-gauzy-agent'
-          AGENT_APP_REPO_OWNER: 'ever-co'
-          COMPANY_SITE_LINK: 'https://gauzy.co'
-          AGENT_APP_DESCRIPTION: 'Gauzy Agent'
-          AGENT_APP_ID: 'com.ever.gauzyagent'
-
-      - name: Add Yarn/Node/npm-global/node_modules to GITHUB_PATH
-        shell: powershell
-        run: |
-          $yarnPath = (Get-Command yarn).Source | Split-Path -Parent
-          $nodePath = (Get-Command node).Source | Split-Path -Parent
-          $npmGlobalBin = npm config get prefix
-          $localBin = Join-Path $PWD "node_modules\.bin"
-          echo $localBin >> $env:GITHUB_PATH
-          echo $npmGlobalBin >> $env:GITHUB_PATH
-          echo $yarnPath >> $env:GITHUB_PATH
-          if ($nodePath -ne $yarnPath) { echo $nodePath >> $env:GITHUB_PATH }
-          Write-Host "Added to GITHUB_PATH: $localBin, $npmGlobalBin, $yarnPath, $nodePath"
-
-      - name: Build Agent
-        shell: powershell
-        run: |
-          Write-Host "=== Command locations ==="
-          Write-Host "Node: $((Get-Command node -ErrorAction SilentlyContinue).Source)"
-          Write-Host "Yarn: $((Get-Command yarn -ErrorAction SilentlyContinue).Source)"
-          Write-Host "ts-node: $((Get-Command ts-node -ErrorAction SilentlyContinue).Source)"
-          Write-Host "cross-env: $((Get-Command cross-env -ErrorAction SilentlyContinue).Source)"
-          Write-Host "nx: $((Get-Command nx -ErrorAction SilentlyContinue).Source)"
-          Write-Host ""
-          Write-Host "=== Starting build ==="
-          yarn build:agent:windows:release:gh:x64
-        env:
-          USE_HARD_LINKS: false
-          ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          EP_GH_IGNORE_TIME: true
-          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-          SENTRY_TRACES_SAMPLE_RATE: '${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}'
-          SENTRY_PROFILE_SAMPLE_RATE: '${{ secrets.SENTRY_PROFILE_SAMPLE_RATE }}'
-          SENTRY_HTTP_TRACING_ENABLED: '${{ secrets.SENTRY_HTTP_TRACING_ENABLED }}'
-          SENTRY_POSTGRES_TRACKING_ENABLED: '${{ secrets.SENTRY_POSTGRES_TRACKING_ENABLED }}'
-          SENTRY_PROFILING_ENABLED: '${{ secrets.SENTRY_PROFILING_ENABLED }}'
-          DO_KEY_ID: ${{ secrets.DO_KEY_ID }}
-          DO_SECRET_KEY: ${{ secrets.DO_SECRET_KEY }}
-          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-          NX_NO_CLOUD: true
-
   release-windows-arm64:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 150
@@ -236,47 +103,63 @@ jobs:
           AGENT_APP_DESCRIPTION: 'Gauzy Agent'
           AGENT_APP_ID: 'com.ever.gauzyagent'
 
-      - name: Add Yarn/Node/npm-global/node_modules to GITHUB_PATH
-        shell: powershell
-        run: |
-          $yarnPath = (Get-Command yarn).Source | Split-Path -Parent
-          $nodePath = (Get-Command node).Source | Split-Path -Parent
-          $npmGlobalBin = npm config get prefix
-          $localBin = Join-Path $PWD "node_modules\.bin"
-          echo $localBin >> $env:GITHUB_PATH
-          echo $npmGlobalBin >> $env:GITHUB_PATH
-          echo $yarnPath >> $env:GITHUB_PATH
-          if ($nodePath -ne $yarnPath) { echo $nodePath >> $env:GITHUB_PATH }
-          Write-Host "Added to GITHUB_PATH: $localBin, $npmGlobalBin, $yarnPath, $nodePath"
-
-      - name: Build Agent
+      - name: Configure PATH for all child processes
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
 
-          # Get paths
+          # Get absolute paths
           $nodePath = (Get-Command node -ErrorAction Stop).Source | Split-Path -Parent
           $yarnCmd = Get-Command yarn -ErrorAction SilentlyContinue
           $yarnPath = if ($yarnCmd) { Split-Path $yarnCmd.Source -Parent } else { "" }
           $localBin = Join-Path $PWD "node_modules\.bin"
+          $npmGlobalBin = & npm config get prefix
 
-          # IMMEDIATE: Set PATH for current step and child processes (fixes NX spawn)
-          $env:PATH = "$nodePath;$yarnPath;$localBin;$env:PATH"
+          Write-Host "Node path: $nodePath"
+          Write-Host "Yarn path: $yarnPath"
+          Write-Host "Local bin: $localBin"
+          Write-Host "NPM global: $npmGlobalBin"
 
-          Write-Host "=== Command locations (PowerShell) ==="
-          Write-Host "Node: $((Get-Command node).Source)"
-          Write-Host "Yarn: $($yarnCmd.Source)"
-          Write-Host "ts-node: $((Get-Command ts-node -ErrorAction SilentlyContinue).Source)"
-          Write-Host "cross-env: $((Get-Command cross-env -ErrorAction SilentlyContinue).Source)"
-          Write-Host "nx: $((Get-Command nx -ErrorAction SilentlyContinue).Source)"
-          Write-Host ""
+          # Build new PATH with all required directories at the front
+          $newPath = "$nodePath;$yarnPath;$localBin;$npmGlobalBin;$($env:PATH)"
 
-          Write-Host "=== cmd.exe visibility check ==="
-          cmd /c "where node"
-          cmd /c "node -p process.arch"
-          Write-Host ""
+          # Set PATH via GITHUB_ENV - this affects ALL subsequent child processes
+          "PATH=$newPath" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 
-          Write-Host "=== Starting build ==="
+          # Also add individual paths to GITHUB_PATH for good measure
+          $localBin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          $npmGlobalBin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          $yarnPath | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          $nodePath | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+
+          Write-Host "PATH configured for all child processes"
+
+      - name: Build Agent
+        shell: cmd
+        run: |
+          echo === Environment Diagnostics ===
+          echo NODE location:
+          where node
+          echo.
+          echo NODE architecture:
+          node -p process.arch
+          echo.
+          echo YARN location:
+          where yarn
+          echo.
+          echo TS-NODE location:
+          where ts-node
+          echo.
+          echo CROSS-ENV location:
+          where cross-env
+          echo.
+          echo NX location:
+          where nx
+          echo.
+          echo === Full PATH ===
+          echo %PATH%
+          echo.
+          echo === Starting build ===
           yarn build:agent:windows:release:gh:arm64
         env:
           USE_HARD_LINKS: false
