@@ -245,22 +245,21 @@ jobs:
           NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
           NX_NO_CLOUD: true
 
-      # Uncomment below to run full build after smoke test passes
-      # - name: Build Agent
-      #   shell: cmd
-      #   run: yarn build:agent:windows:release:gh:arm64
-      #   env:
-      #     USE_HARD_LINKS: false
-      #     ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
-      #     GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      #     EP_GH_IGNORE_TIME: true
-      #     SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-      #     SENTRY_TRACES_SAMPLE_RATE: '${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}'
-      #     SENTRY_PROFILE_SAMPLE_RATE: '${{ secrets.SENTRY_PROFILE_SAMPLE_RATE }}'
-      #     SENTRY_HTTP_TRACING_ENABLED: '${{ secrets.SENTRY_HTTP_TRACING_ENABLED }}'
-      #     SENTRY_POSTGRES_TRACKING_ENABLED: '${{ secrets.SENTRY_POSTGRES_TRACKING_ENABLED }}'
-      #     SENTRY_PROFILING_ENABLED: '${{ secrets.SENTRY_PROFILING_ENABLED }}'
-      #     DO_KEY_ID: ${{ secrets.DO_KEY_ID }}
-      #     DO_SECRET_KEY: ${{ secrets.DO_SECRET_KEY }}
-      #     NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-      #     NX_NO_CLOUD: true
+      - name: Build Agent
+        shell: cmd
+        run: yarn build:agent:windows:release:gh:arm64
+        env:
+          USE_HARD_LINKS: false
+          ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          EP_GH_IGNORE_TIME: true
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SENTRY_TRACES_SAMPLE_RATE: '${{ secrets.SENTRY_TRACES_SAMPLE_RATE }}'
+          SENTRY_PROFILE_SAMPLE_RATE: '${{ secrets.SENTRY_PROFILE_SAMPLE_RATE }}'
+          SENTRY_HTTP_TRACING_ENABLED: '${{ secrets.SENTRY_HTTP_TRACING_ENABLED }}'
+          SENTRY_POSTGRES_TRACKING_ENABLED: '${{ secrets.SENTRY_POSTGRES_TRACKING_ENABLED }}'
+          SENTRY_PROFILING_ENABLED: '${{ secrets.SENTRY_PROFILING_ENABLED }}'
+          DO_KEY_ID: ${{ secrets.DO_KEY_ID }}
+          DO_SECRET_KEY: ${{ secrets.DO_SECRET_KEY }}
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+          NX_NO_CLOUD: true
