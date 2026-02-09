@@ -53,7 +53,7 @@
 				"scripts": [
 					"node_modules/echarts/dist/echarts.min.js",
 					"node_modules/echarts/dist/extension/bmap.min.js",
-					"node_modules/chart.js/dist/chart.js"
+					"node_modules/chart.js/dist/chart.umd.min.js"
 				],
 				"allowedCommonJsDependencies": [
 					"@gauzy/contracts",
@@ -215,7 +215,7 @@
 				"scripts": [
 					"node_modules/echarts/dist/echarts.min.js",
 					"node_modules/echarts/dist/extension/bmap.min.js",
-					"node_modules/chart.js/dist/chart.js"
+					"node_modules/chart.js/dist/chart.umd.min.js"
 				],
 				"allowedCommonJsDependencies": [
 					"@gauzy/contracts",
@@ -327,7 +327,7 @@
 				"scripts": [
 					"node_modules/echarts/dist/echarts.min.js",
 					"node_modules/echarts/dist/extension/bmap.min.js",
-					"node_modules/chart.js/dist/chart.js"
+					"node_modules/chart.js/dist/chart.umd.min.js"
 				],
 				"allowedCommonJsDependencies": [
 					"@gauzy/contracts",

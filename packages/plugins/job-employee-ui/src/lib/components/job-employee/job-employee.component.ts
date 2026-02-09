@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -60,8 +60,6 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 	public readonly jobSearchTabsEnum = JobSearchTabsEnum;
 	public readonly employees$ = new Subject<boolean>();
 	public readonly nbTab$ = new BehaviorSubject<JobSearchTabsEnum>(JobSearchTabsEnum.BROWSE);
-	public tabsetId: PageTabsetRegistryId;
-	public dataTableId: PageDataTableRegistryId;
 	public loading = false;
 	public settingsSmartTable: any;
 	public smartTableSource: ServerDataSource;
@@ -70,27 +68,27 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 	public selectedEmployee: IEmployee | null = null;
 	public disableButton = true;
 
+	private readonly _http = inject(HttpClient);
+	private readonly _route = inject(ActivatedRoute);
+	private readonly _router = inject(Router);
+	private readonly _ngxPermissionsService = inject(NgxPermissionsService);
+	private readonly _store = inject(Store);
+	private readonly _employeesService = inject(EmployeesService);
+	private readonly _jobSearchStoreService = inject(JobSearchStoreService);
+	private readonly _toastrService = inject(ToastrService);
+	private readonly _currencyPipe = inject(CurrencyPipe);
+	private readonly _i18nService = inject(I18nService);
+	private readonly _pageDataTableRegistryService = inject(PageDataTableRegistryService);
+	private readonly _pageTabRegistryService = inject(PageTabRegistryService);
+
+	public tabsetId: PageTabsetRegistryId = this._route.snapshot.data['tabsetId'];
+	public dataTableId: PageDataTableRegistryId = this._route.snapshot.data['dataTableId'];
+
 	@ViewChild('tableLayout', { static: true }) tableLayout!: TemplateRef<unknown>;
 	@ViewChild('comingSoon', { static: true }) comingSoon!: TemplateRef<unknown>;
 
-	constructor(
-		translateService: TranslateService,
-		private readonly _http: HttpClient,
-		private readonly _route: ActivatedRoute,
-		private readonly _router: Router,
-		private readonly _ngxPermissionsService: NgxPermissionsService,
-		private readonly _store: Store,
-		private readonly _employeesService: EmployeesService,
-		private readonly _jobSearchStoreService: JobSearchStoreService,
-		private readonly _toastrService: ToastrService,
-		private readonly _currencyPipe: CurrencyPipe,
-		private readonly _i18nService: I18nService,
-		readonly _pageDataTableRegistryService: PageDataTableRegistryService,
-		readonly _pageTabRegistryService: PageTabRegistryService
-	) {
-		super(translateService);
-		this.tabsetId = this._route.snapshot.data['tabsetId'];
-		this.dataTableId = this._route.snapshot.data['dataTableId'];
+	constructor() {
+		super(inject(TranslateService));
 	}
 
 	/** Initialize permissions, locale, page tabs/columns, smart table settings, and translation listener. */

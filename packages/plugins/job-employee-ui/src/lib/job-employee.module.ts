@@ -26,7 +26,7 @@ import { JobEmployeeComponent } from './components/job-employee/job-employee.com
 		NbTabsetModule,
 		NbToggleModule,
 		NgxPermissionsModule,
-		TranslateModule,
+		TranslateModule.forChild(),
 		SharedModule,
 		SmartDataViewLayoutModule,
 		DynamicTabsModule
