@@ -87,5 +87,5 @@ nb-accordion-item-header ::ng-deep nb-icon {
 
 .coming-soon-icon {
   font-size: 50px;
-  color: nb-theme(text-hint-color);
+  color: var(--text-hint-color);
 }
