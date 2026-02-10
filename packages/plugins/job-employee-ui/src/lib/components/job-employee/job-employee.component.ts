@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+	AfterViewInit,
+	ChangeDetectionStrategy,
+	Component,
+	inject,
+	OnInit,
+	TemplateRef,
+	ViewChild
+} from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -295,7 +303,9 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 				const employee: IEmployee = cell.getRow().getData();
 				instance.label = false;
 				instance.value = employee.isJobSearchActive;
-				instance.onSwitched.subscribe((toggle: boolean) => {
+
+				/** Subscribe to the onSwitched event and update the job search availability. */
+				instance.onSwitched.pipe(untilDestroyed(this)).subscribe((toggle: boolean) => {
 					this._jobSearchStoreService.updateJobSearchAvailability(this.organization, employee, toggle);
 				});
 			},
@@ -486,7 +496,6 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 	 * @returns void
 	 */
 	onEditCancel(event: any): void {
-		console.log('Edit canceled for row:', event);
 		this.smartTableSource.refresh();
 	}
 

@@ -4,7 +4,7 @@
 } @else {
 <!-- Static tabs for the nb tabset -->
 <nb-tabset>
-	@for (tab of tabs; track tab?.tabId) {
+	@for (tab of tabs; track tab.tabId) {
 	<nb-tab
 		[tabTitle]="tab?.title"
 		[tabIcon]="tab?.icon"
