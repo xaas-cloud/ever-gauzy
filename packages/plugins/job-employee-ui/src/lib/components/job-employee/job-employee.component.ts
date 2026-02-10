@@ -1,12 +1,4 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	Component,
-	inject,
-	OnInit,
-	TemplateRef,
-	ViewChild
-} from '@angular/core';
+import { AfterViewInit, Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -305,7 +297,7 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 				instance.value = employee.isJobSearchActive;
 
 				/** Subscribe to the onSwitched event and update the job search availability. */
-				instance.onSwitched.pipe(untilDestroyed(this)).subscribe((toggle: boolean) => {
+				instance.onSwitched.pipe(untilDestroyed(instance)).subscribe((toggle: boolean) => {
 					this._jobSearchStoreService.updateJobSearchAvailability(this.organization, employee, toggle);
 				});
 			},
@@ -484,6 +476,7 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 			});
 
 			this.employees$.next(true);
+			await event.confirm.resolve(event.newData);
 		} catch (error) {
 			console.error('Error while updating employee rates', error);
 			await event.confirm.reject();
