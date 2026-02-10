@@ -61,7 +61,7 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 	public readonly employees$ = new Subject<boolean>();
 	public readonly nbTab$ = new BehaviorSubject<JobSearchTabsEnum>(JobSearchTabsEnum.BROWSE);
 	public loading = false;
-	public settingsSmartTable: any;
+	public settingsSmartTable: unknown;
 	public smartTableSource: ServerDataSource;
 	public organization: IOrganization | null = null;
 	public selectedEmployeeId: ID | null = null;
@@ -81,8 +81,8 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 	private readonly _pageDataTableRegistryService = inject(PageDataTableRegistryService);
 	private readonly _pageTabRegistryService = inject(PageTabRegistryService);
 
-	public tabsetId: PageTabsetRegistryId = this._route.snapshot.data['tabsetId'];
-	public dataTableId: PageDataTableRegistryId = this._route.snapshot.data['dataTableId'];
+	public readonly tabsetId: PageTabsetRegistryId = this._route.snapshot.data['tabsetId'];
+	public readonly dataTableId: PageDataTableRegistryId = this._route.snapshot.data['dataTableId'];
 
 	@ViewChild('tableLayout', { static: true }) tableLayout!: TemplateRef<unknown>;
 	@ViewChild('comingSoon', { static: true }) comingSoon!: TemplateRef<unknown>;
