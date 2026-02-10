@@ -62,9 +62,8 @@ export class JobEmployeeModule {
 			component: JobEmployeeComponent,
 			// Protect the route with permissions guard
 			canActivate: [PermissionsGuard],
-			// Register the data object
 			data: {
-				// Tabset and datatable identifiers used by the page layout
+				// Tabset and data table identifiers used by the page layout
 				tabsetId: 'job-employee',
 				dataTableId: 'job-employee',
 				// Global page selectors configuration
