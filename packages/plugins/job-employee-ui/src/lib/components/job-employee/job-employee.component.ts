@@ -84,8 +84,8 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 	public readonly tabsetId: PageTabsetRegistryId = this._route.snapshot.data['tabsetId'];
 	public readonly dataTableId: PageDataTableRegistryId = this._route.snapshot.data['dataTableId'];
 
-	@ViewChild('tableLayout', { static: true }) tableLayout!: TemplateRef<unknown>;
-	@ViewChild('comingSoon', { static: true }) comingSoon!: TemplateRef<unknown>;
+	@ViewChild('tableLayout', { static: true }) readonly tableLayout!: TemplateRef<unknown>;
+	@ViewChild('comingSoon', { static: true }) readonly comingSoon!: TemplateRef<unknown>;
 
 	constructor() {
 		super(inject(TranslateService));
