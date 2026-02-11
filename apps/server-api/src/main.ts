@@ -3,7 +3,7 @@ import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Router, RouterModule } from '@angular/router';
-import { NbDialogModule, NbDialogService, NbMenuModule, NbSidebarModule, NbToastrModule } from '@nebular/theme';
+import { NbDialogModule, NbDialogService, NbMenuModule, NbSidebarModule, NbToastrModule, NbIconLibraries } from '@nebular/theme';
 import * as Sentry from '@sentry/angular';
 import {
 	ElectronService,
@@ -14,7 +14,7 @@ import {
 	Store
 } from '@gauzy/desktop-ui-lib';
 import { environment as gauzyEnvironment } from '@gauzy/ui-config';
-import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
+import { NbTablerIconsModule } from '@gauzy/ui-core/theme-icons';
 import { provideI18n } from '@gauzy/ui-core/i18n';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
@@ -66,8 +66,18 @@ bootstrapApplication(AppComponent, {
 			deps: [Router]
 		},
 		provideAppInitializer(() => {
-			const initializerFn = ((trace: Sentry.TraceService) => () => {})(inject(Sentry.TraceService));
+			const initializerFn = ((trace: Sentry.TraceService) => () => { })(inject(Sentry.TraceService));
 			return initializerFn();
+		}),
+		provideAppInitializer(() => {
+			const iconLibraries = inject(NbIconLibraries);
+
+			iconLibraries.registerFontPack('font-awesome', {
+				packClass: 'fas',
+				iconClassPrefix: 'fa'
+			});
+
+			iconLibraries.setDefaultPack('eva');
 		}),
 		{
 			provide: GAUZY_ENV,

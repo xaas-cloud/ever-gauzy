@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { akitaConfig, enableAkitaProdMode, persistState } from '@datorama/akita';
 import {
 	APIInterceptor,
-	AboutModule,
 	AgentDashboardModule,
 	AlwaysOnModule,
 	AuthGuard,
@@ -17,7 +16,6 @@ import {
 	ElectronService,
 	ErrorHandlerService,
 	GAUZY_ENV,
-	ImageViewerModule,
 	LanguageInterceptor,
 	LanguageModule,
 	LoggerService,
@@ -30,9 +28,6 @@ import {
 	ServerDashboardModule,
 	ServerDownModule,
 	ServerErrorInterceptor,
-	SettingsModule,
-	SetupModule,
-	SplashScreenModule,
 	Store,
 	TenantInterceptor,
 	TimeoutInterceptor,
@@ -105,16 +100,11 @@ bootstrapApplication(AppComponent, {
 			NbSidebarModule.forRoot(),
 			NgxDesktopThemeModule,
 			NgxLoginModule,
-			SetupModule,
-			SettingsModule,
 			ServerDashboardModule,
-			ImageViewerModule,
 			NgSelectModule,
-			SplashScreenModule,
 			ServerDownModule,
 			LanguageModule.forRoot(),
 			NbDatepickerModule.forRoot(),
-			AboutModule,
 			AgentDashboardModule,
 			AlwaysOnModule
 		),
@@ -193,7 +183,7 @@ bootstrapApplication(AppComponent, {
 		},
 		{
 			provide: APP_INITIALIZER,
-			useFactory: () => () => {},
+			useFactory: () => () => { },
 			deps: [Sentry.TraceService],
 			multi: true
 		},
