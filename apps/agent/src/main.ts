@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, Injector, enableProdMode, importProvidersFrom } from '@angular/core';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { akitaConfig, enableAkitaProdMode, persistState } from '@datorama/akita';
 import {
 	APIInterceptor,
-	AboutModule,
 	AgentDashboardModule,
 	AlwaysOnModule,
 	AuthGuard,
@@ -17,8 +16,6 @@ import {
 	ElectronService,
 	ErrorHandlerService,
 	GAUZY_ENV,
-	HttpLoaderFactory,
-	ImageViewerModule,
 	LanguageInterceptor,
 	LanguageModule,
 	LoggerService,
@@ -31,9 +28,6 @@ import {
 	ServerDashboardModule,
 	ServerDownModule,
 	ServerErrorInterceptor,
-	SettingsModule,
-	SetupModule,
-	SplashScreenModule,
 	Store,
 	TenantInterceptor,
 	TimeoutInterceptor,
@@ -54,8 +48,8 @@ import {
 	NbToastrModule
 } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import * as Sentry from '@sentry/angular';
+import { provideI18n } from '@gauzy/ui-core/i18n';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { AppModuleGuard } from './app/app.module.guards';
@@ -106,27 +100,15 @@ bootstrapApplication(AppComponent, {
 			NbSidebarModule.forRoot(),
 			NgxDesktopThemeModule,
 			NgxLoginModule,
-			SetupModule,
-			SettingsModule,
 			ServerDashboardModule,
-			ImageViewerModule,
 			NgSelectModule,
-			SplashScreenModule,
 			ServerDownModule,
-			TranslateModule.forRoot({
-				extend: true,
-				loader: {
-					provide: TranslateLoader,
-					useFactory: HttpLoaderFactory,
-					deps: [HttpClient]
-				}
-			}),
 			LanguageModule.forRoot(),
 			NbDatepickerModule.forRoot(),
-			AboutModule,
 			AgentDashboardModule,
 			AlwaysOnModule
 		),
+		provideI18n({ extend: true }),
 		AppService,
 		NbDialogService,
 		NbSidebarService,
@@ -201,7 +183,7 @@ bootstrapApplication(AppComponent, {
 		},
 		{
 			provide: APP_INITIALIZER,
-			useFactory: () => () => {},
+			useFactory: () => () => { },
 			deps: [Sentry.TraceService],
 			multi: true
 		},
