@@ -24,32 +24,32 @@ import {
 import { LanguageModule } from '../language/language.module';
 import { SslModule } from '../settings/ssl';
 import { SetupService } from './setup.service';
-import { NbTablerIconsModule } from '@gauzy/ui-core/theme/src/lib/icons/tabler-icons.module';
+import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 
 @NgModule({
-    imports: [
-    CommonModule,
-    NbLayoutModule,
-    NbCardModule,
-    NbToggleModule,
-    NbSelectModule,
-    NbInputModule,
-    NbButtonModule,
-    FormsModule,
-    NbSpinnerModule,
-    NbCheckboxModule,
-    NbIconModule,
-    NbTablerIconsModule,
-    NbStepperModule,
-    NbRadioModule,
-    NbProgressBarModule,
-    NbFormFieldModule,
-    NbDialogModule,
-    LanguageModule.forChild(),
-    SslModule,
-    SetupComponent
-],
-    exports: [SetupComponent],
-    providers: [SetupService, NbDialogService]
+	imports: [
+		CommonModule,
+		NbLayoutModule,
+		NbCardModule,
+		NbToggleModule,
+		NbSelectModule,
+		NbInputModule,
+		NbButtonModule,
+		FormsModule,
+		NbSpinnerModule,
+		NbCheckboxModule,
+		NbIconModule,
+		NbTablerIconsModule,
+		NbStepperModule,
+		NbRadioModule,
+		NbProgressBarModule,
+		NbFormFieldModule,
+		NbDialogModule,
+		LanguageModule.forChild(),
+		SslModule,
+		SetupComponent
+	],
+	exports: [SetupComponent],
+	providers: [SetupService, NbDialogService]
 })
 export class SetupModule {}
