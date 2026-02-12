@@ -9,7 +9,7 @@ import {
 	NbLayoutModule,
 	NbSpinnerModule
 } from '@nebular/theme';
-import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
+import { TablerIconsModule } from '@gauzy/ui-core/theme';
 import { ImageCacheService, StorageService, Store } from '../services';
 import { PipeModule } from '../time-tracker/pipes/pipe.module';
 import { ImageViewerComponent } from './image-viewer.component';
@@ -21,7 +21,7 @@ import { ImageViewerService } from './image-viewer.service';
 		NbLayoutModule,
 		NbCardModule,
 		NbIconModule,
-		NbTablerIconsModule,
+		TablerIconsModule,
 		NbDialogModule,
 		NbButtonModule,
 		NbSpinnerModule,

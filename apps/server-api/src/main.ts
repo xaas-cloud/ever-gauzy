@@ -14,7 +14,7 @@ import {
 	Store
 } from '@gauzy/desktop-ui-lib';
 import { environment as gauzyEnvironment } from '@gauzy/ui-config';
-import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
+import { TablerIconsModule } from '@gauzy/ui-core/theme';
 import { provideI18n } from '@gauzy/ui-core/i18n';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
@@ -47,7 +47,7 @@ bootstrapApplication(AppComponent, {
 			NbSidebarModule.forRoot(),
 			LanguageModule.forRoot(),
 			NgxDesktopThemeModule,
-			NbTablerIconsModule
+			TablerIconsModule
 		),
 		provideI18n({ extend: true }),
 		AppService,

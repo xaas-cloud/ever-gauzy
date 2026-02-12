@@ -34,6 +34,7 @@ import {
 import { provideEffects, provideEffectsManager } from '@ngneat/effects-ng';
 import { TranslateModule } from '@ngx-translate/core';
 import { Angular2SmartTableModule } from 'angular2-smart-table';
+import { TablerIconsModule } from '@gauzy/ui-core/theme';
 
 import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 
@@ -126,7 +127,6 @@ import { PluginService } from './services/plugin.service';
 import { UserSubscribedPluginsService } from './services/user-subscribed-plugins.service';
 import { SourceContainerComponent } from './shared/ui/source-container/source-container.component';
 // Shared subscription components and services
-import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
 import { ElectronService } from '../../electron/services';
 import { PluginCategoryEffects } from './component/plugin-marketplace/+state/effects/plugin-category.effect';
 import { PluginToggleEffects } from './component/plugin-marketplace/+state/effects/plugin-toggle.effects';
@@ -163,7 +163,7 @@ import { UploadSelectionComponent } from './component/upload-selection/upload-se
 		NbInputModule,
 		NbCardModule,
 		NbIconModule,
-		NbTablerIconsModule,
+		TablerIconsModule,
 		TranslateModule.forChild(),
 		RouterModule,
 		NbBadgeModule,

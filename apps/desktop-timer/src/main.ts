@@ -49,7 +49,7 @@ import {
 import * as Sentry from '@sentry/angular';
 import { environment as gauzyEnvironment } from '@gauzy/ui-config';
 import { provideI18n } from '@gauzy/ui-core/i18n';
-import { NbTablerIconsModule } from '@gauzy/ui-core/theme';
+import { TablerIconsModule } from '@gauzy/ui-core/theme';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { AppModuleGuard } from './app/app.module.guards';
@@ -90,7 +90,7 @@ bootstrapApplication(AppComponent, {
 			NbThemeModule,
 			NbSidebarModule.forRoot(), // Provides NbSidebarService
 			NbMenuModule.forRoot(), // Provides NbMenuService
-			NbTablerIconsModule,
+			TablerIconsModule,
 			LanguageModule.forRoot(),
 			NbDatepickerModule.forRoot()
 		),
