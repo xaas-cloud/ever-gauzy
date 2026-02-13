@@ -41,7 +41,7 @@ import {
 	NbIconLibraries
 } from '@nebular/theme';
 import { provideI18n } from '@gauzy/ui-core/i18n';
-import { TablerIconsModule } from '@gauzy/ui-core/theme';
+import { TablerIconsModule } from '@gauzy/ui-core/theme-icon';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { AppService } from './app/app.service';
