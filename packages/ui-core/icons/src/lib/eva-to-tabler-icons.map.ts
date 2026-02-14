@@ -1,5 +1,4 @@
 import {
-import {
     tablerActivity,
     tablerAdjustmentsHorizontal,
     tablerAlertCircle,
