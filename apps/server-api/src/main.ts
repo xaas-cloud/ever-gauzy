@@ -14,7 +14,7 @@ import {
 	Store
 } from '@gauzy/desktop-ui-lib';
 import { environment as gauzyEnvironment } from '@gauzy/ui-config';
-import { TablerIconsModule } from '@gauzy/ui-core/theme-icon';
+import { TablerIconsModule } from '@gauzy/ui-core/icons';
 import { provideI18n } from '@gauzy/ui-core/i18n';
 import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
