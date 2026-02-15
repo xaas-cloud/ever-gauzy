@@ -5,7 +5,11 @@
 	"prefix": "lib",
 	"projectType": "library",
 	"tags": [],
-	"implicitDependencies": [],
+	"implicitDependencies": [
+		"contracts",
+		"ui-config",
+		"ui-core"
+	],
 	"targets": {
 		"build": {
 			"executor": "@nx/angular:package",
@@ -24,7 +28,10 @@
 					"tsConfig": "packages/plugins/integration-make-com-ui/tsconfig.lib.json"
 				}
 			},
-			"defaultConfiguration": "production"
+			"defaultConfiguration": "development",
+			"dependsOn": [
+				"^build"
+			]
 		},
 		"test": {
 			"executor": "@nx/jest:jest",
@@ -32,7 +39,8 @@
 				"{workspaceRoot}/coverage/{projectRoot}"
 			],
 			"options": {
-				"jestConfig": "packages/plugins/integration-make-com-ui/jest.config.ts"
+				"jestConfig": "packages/plugins/integration-make-com-ui/jest.config.ts",
+				"tsConfig": "packages/plugins/integration-make-com-ui/tsconfig.spec.json"
 			}
 		},
 		"lint": {

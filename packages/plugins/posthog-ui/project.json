@@ -9,7 +9,10 @@
 		"tracking",
 		"posthog"
 	],
-	"implicitDependencies": [],
+	"implicitDependencies": [
+		"ui-core",
+		"ui-config"
+	],
 	"targets": {
 		"build": {
 			"executor": "@nx/angular:package",
@@ -17,17 +20,19 @@
 				"{workspaceRoot}/dist/{projectRoot}"
 			],
 			"options": {
-				"project": "packages/plugins/posthog-ui/ng-package.json"
+				"project": "packages/plugins/posthog-ui/ng-package.json",
+				"tsConfig": "packages/plugins/posthog-ui/tsconfig.lib.json"
 			},
 			"configurations": {
 				"production": {
 					"tsConfig": "packages/plugins/posthog-ui/tsconfig.lib.prod.json"
 				},
-				"development": {
-					"tsConfig": "packages/plugins/posthog-ui/tsconfig.lib.json"
-				}
+				"development": {}
 			},
-			"defaultConfiguration": "production"
+			"defaultConfiguration": "development",
+			"dependsOn": [
+				"^build"
+			]
 		},
 		"test": {
 			"executor": "@nx/jest:jest",
@@ -35,7 +40,8 @@
 				"{workspaceRoot}/coverage/{projectRoot}"
 			],
 			"options": {
-				"jestConfig": "packages/plugins/posthog-ui/jest.config.ts"
+				"jestConfig": "packages/plugins/posthog-ui/jest.config.ts",
+				"tsConfig": "packages/plugins/posthog-ui/tsconfig.spec.json"
 			}
 		},
 		"lint": {

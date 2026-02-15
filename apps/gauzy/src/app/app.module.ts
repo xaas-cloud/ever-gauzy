@@ -3,7 +3,7 @@
 
 import { VERSION } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ExtraOptions, Router, RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,8 +20,6 @@ import {
 	NbCalendarModule,
 	NbCalendarKitModule
 } from '@nebular/theme';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { FileUploadModule } from 'ng2-file-upload';
 import { CookieService } from 'ngx-cookie-service';
@@ -54,7 +52,7 @@ import {
 } from '@gauzy/ui-core/core';
 import { PostHogModule } from '@gauzy/plugin-posthog-ui';
 import { CommonModule } from '@gauzy/ui-core/common';
-import { HttpLoaderFactory, I18nModule, I18nService } from '@gauzy/ui-core/i18n';
+import { I18nModule, I18nService } from '@gauzy/ui-core/i18n';
 import { SharedModule, TimeTrackerModule, dayOfWeekAsString } from '@gauzy/ui-core/shared';
 import { ThemeModule } from '@gauzy/ui-core/theme';
 import { AppComponent } from './app.component';
@@ -98,35 +96,22 @@ const NB_MODULES = [
 	NbDialogModule.forRoot(),
 	NbWindowModule.forRoot(),
 	NbToastrModule.forRoot(),
-	NbChatModule.forRoot({ messageGoogleMapKey: environment.CHAT_MESSAGE_GOOGLE_MAP }),
-	NbEvaIconsModule
+	NbChatModule.forRoot({ messageGoogleMapKey: environment.CHAT_MESSAGE_GOOGLE_MAP })
 ];
 
 // Third Party Modules
 const THIRD_PARTY_MODULES = [
-	isProd ? [] : AkitaNgDevtools,
+	...(isProd ? [] : [AkitaNgDevtools]),
 	FeatureToggleModule,
 	FileUploadModule,
 	NgxPermissionsModule.forRoot(),
-	TranslateModule.forRoot({
-		loader: {
-			provide: TranslateLoader,
-			useFactory: HttpLoaderFactory,
-			deps: [HttpClient]
+	PostHogModule.forRoot({
+		apiKey: environment.POSTHOG_KEY || '',
+		options: {
+			api_host: environment.POSTHOG_HOST,
+			capture_pageview: environment.POSTHOG_ENABLED
 		}
-	}),
-
-	...(environment.POSTHOG_ENABLED && environment.POSTHOG_KEY && environment.POSTHOG_KEY !== 'DOCKER_POSTHOG_KEY'
-		? [
-				PostHogModule.forRoot({
-					apiKey: environment.POSTHOG_KEY,
-					options: {
-						api_host: environment.POSTHOG_HOST,
-						capture_pageview: true
-					}
-				})
-		  ]
-		: [])
+	})
 ];
 
 // Feature Modules

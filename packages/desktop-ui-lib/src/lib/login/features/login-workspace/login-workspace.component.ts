@@ -1,18 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavigationExtras, Router } from '@angular/router';
-import { HttpStatus, IAuthResponse, IUser, IUserSigninWorkspaceResponse, IWorkspaceResponse } from '@gauzy/contracts';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NavigationExtras, Router, RouterLink } from '@angular/router';
+import { HttpStatus, IAuthResponse, IUserSigninWorkspaceResponse, IWorkspaceResponse } from '@gauzy/contracts';
+import { NbButtonModule, NbFormFieldModule, NbIconModule, NbInputModule } from '@nebular/theme';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { asyncScheduler, catchError, EMPTY, filter, tap } from 'rxjs';
-import { AuthService } from '../../../auth';
-import { ErrorHandlerService, Store, TimeTrackerDateManager } from '../../../services';
+import { TranslatePipe } from '@ngx-translate/core';
+import { catchError, EMPTY, filter, switchMap, tap } from 'rxjs';
+import { AuthService, AuthStrategy } from '../../../auth';
+import { SpinnerButtonDirective } from '../../../directives/spinner-button.directive';
+import { ErrorHandlerService, Store } from '../../../services';
+import { LogoComponent } from '../../shared/ui/logo/logo.component';
+import { WorkspaceSelectionComponent } from '../../shared/ui/workspace-selection/workspace-selection.component';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
-    selector: 'ngx-login-workspace',
-    templateUrl: './login-workspace.component.html',
-    styleUrls: ['./login-workspace.component.scss'],
-    standalone: false
+	selector: 'ngx-login-workspace',
+	templateUrl: './login-workspace.component.html',
+	styleUrls: ['./login-workspace.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [
+		WorkspaceSelectionComponent,
+		LogoComponent,
+		NgTemplateOutlet,
+		RouterLink,
+		FormsModule,
+		ReactiveFormsModule,
+		NbInputModule,
+		NbFormFieldModule,
+		NbButtonModule,
+		NbIconModule,
+		SpinnerButtonDirective,
+		NgStyle,
+		TranslatePipe
+	]
 })
 export class NgxLoginWorkspaceComponent implements OnInit {
 	public confirmedEmail: string;
@@ -43,6 +64,7 @@ export class NgxLoginWorkspaceComponent implements OnInit {
 		private readonly _store: Store,
 		private readonly _fb: FormBuilder,
 		private readonly _authService: AuthService,
+		private readonly _authStrategy: AuthStrategy,
 		private readonly _errorHandlingService: ErrorHandlerService,
 		private readonly _router: Router
 	) {
@@ -128,24 +150,10 @@ export class NgxLoginWorkspaceComponent implements OnInit {
 					}
 				}),
 				filter(({ user, token }: IAuthResponse) => !!user && !!token),
-				tap((response: IAuthResponse) => {
-					const user: IUser = response.user;
-					const token: string = response.token;
-					const refreshToken: string = response.refresh_token;
-
-					const { id, employee, tenantId } = user;
-					TimeTrackerDateManager.organization = employee.organization;
-					this._store.organizationId = employee.organizationId;
-					this._store.tenantId = tenantId;
-					this._store.userId = id;
-					this._store.token = token;
-					this._store.user = user;
-					this._store.refreshToken = refreshToken;
-
-					asyncScheduler.schedule(() => {
-						this._authService.electronAuthentication({ token, user, refresh_token: refreshToken });
-						this.loading = false;
-					}, 3000);
+				switchMap((response: IAuthResponse) => {
+					// Store authentication data using centralized method
+					this._authStrategy.storeAuthenticationData(response);
+					return this._authService.electronAuthentication(response);
 				}),
 				catchError((error) => {
 					// Handle and log errors using the error handling service

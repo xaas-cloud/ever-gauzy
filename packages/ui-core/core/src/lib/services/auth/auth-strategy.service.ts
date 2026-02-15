@@ -280,7 +280,7 @@ export class AuthStrategy extends NbAuthStrategy {
 		//remove time tracking/timesheet filter just before logout
 		if (this.store.user && this.store.user.employee) {
 			if (this.timeTrackerService.running) {
-				if (this.timeTrackerService.timerSynced.isExternalSource) {
+				if (this.timeTrackerService.timerSynced?.isExternalSource) {
 					this.timeTrackerService.remoteToggle();
 				} else {
 					await this.timeTrackerService.toggle();
@@ -312,6 +312,10 @@ export class AuthStrategy extends NbAuthStrategy {
 					return new NbAuthResult(false, res, false, AuthStrategy.config.login.defaultErrors);
 				}
 
+				// Reset selectedOrganization to prevent stale data from previous session.
+				// OrganizationSelectorComponent will set the correct organization after login.
+				this.store.selectedOrganization = user?.employee?.organization ?? null;
+
 				this.store.userId = user.id;
 				this.store.token = token;
 				this.store.refresh_token = refresh_token;
@@ -319,7 +323,7 @@ export class AuthStrategy extends NbAuthStrategy {
 				this.store.tenantId = user?.tenantId;
 				this.store.user = user;
 
-				this.electronAuthentication({ user, token, refresh_token  });
+				this.electronAuthentication({ user, token, refresh_token });
 
 				return new NbAuthResult(
 					true,

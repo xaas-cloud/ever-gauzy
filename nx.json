@@ -1,4 +1,5 @@
 {
+  "nxCloudId": "64f8c5bcd09b086be3baeccf",
   "namedInputs": {
     "default": [
       "{projectRoot}/**/*",
@@ -10,10 +11,26 @@
     "sharedGlobals": [
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/tsconfig.json",
-      "{workspaceRoot}/.eslintrc.json"
+      "{workspaceRoot}/.eslintrc.json",
+      "{workspaceRoot}/.env",
+      "{workspaceRoot}/.env.local",
+      {
+        "runtime": "node -p process.platform"
+      },
+      {
+        "runtime": "node -p process.arch"
+      },
+      {
+        "runtime": "node -p process.versions.node"
+      },
+      {
+        "env": "NODE_ENV"
+      }
     ],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.test.ts"
     ]
   },
   "cli": {
@@ -52,21 +69,40 @@
       },
       "directive": {
         "prefix": "ngx",
-        "skipTests": false
+        "skipTests": false,
+        "type": "directive"
       },
       "service": {
-        "skipTests": false
+        "skipTests": false,
+        "type": "service"
       },
       "pipe": {
-        "skipTests": false
+        "skipTests": false,
+        "typeSeparator": "."
       },
       "module": {
-        "skipTests": false
+        "skipTests": false,
+        "typeSeparator": "."
       },
       "storybook-configuration": {
         "linter": "eslint",
         "configureCypress": true,
         "generateCypressSpecs": true
+      },
+      "scam": {
+        "type": "component"
+      },
+      "scam-directive": {
+        "type": "directive"
+      },
+      "guard": {
+        "typeSeparator": "."
+      },
+      "interceptor": {
+        "typeSeparator": "."
+      },
+      "resolver": {
+        "typeSeparator": "."
       }
     },
     "@nx/angular:application": {
@@ -80,31 +116,59 @@
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
-      "style": "css"
+      "style": "css",
+      "type": "component"
+    },
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "defaultProject": "gauzy",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "parallel": 3,
+  "parallel": 8,
   "targetDefaults": {
     "build": {
-      "cache": false,
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
       "inputs": [
         "production",
         "^production"
       ]
     },
     "lint": {
-      "cache": false
+      "cache": true
     },
     "test": {
-      "cache": false
+      "cache": true
     },
     "e2e": {
-      "cache": false
+      "cache": true
     },
     "@nx/eslint:lint": {
-      "cache": false,
+      "cache": true,
       "inputs": [
         "default",
         "{workspaceRoot}/.eslintrc.json",
@@ -112,7 +176,7 @@
       ]
     },
     "@nx/jest:jest": {
-      "cache": false,
+      "cache": true,
       "inputs": [
         "default",
         "^production",
@@ -129,7 +193,7 @@
       }
     },
     "@nx/angular:package": {
-      "cache": false,
+      "cache": true,
       "dependsOn": [
         "^build"
       ],
@@ -139,7 +203,7 @@
       ]
     },
     "@nx/webpack:webpack": {
-      "cache": false,
+      "cache": true,
       "dependsOn": [
         "^build"
       ],
@@ -167,20 +231,11 @@
         "production",
         "^production"
       ]
-    },
-    "@angular-builders/custom-webpack:browser": {
-      "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
     }
   },
   "useInferencePlugins": false,
-  "defaultBase": "master",
+  "useDaemon": true,
+  "defaultBase": "develop",
   "release": {
     "version": {
       "preVersionCommand": "yarn nx run-many -t build"
