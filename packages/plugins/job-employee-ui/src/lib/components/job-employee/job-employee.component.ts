@@ -427,7 +427,7 @@ export class JobEmployeeComponent extends PaginationFilterBaseComponent implemen
 				confirmSave: true
 			},
 			columns: {
-				...this._pageDataTableRegistryService.getPageDataTableColumns('job-employee')
+				...this._pageDataTableRegistryService.getPageDataTableColumns('job-employee-page')
 			}
 		};
 	}
