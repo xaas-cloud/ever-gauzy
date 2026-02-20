@@ -10,6 +10,7 @@ import {
 	applyDeclarativeRegistrations,
 	IOnPluginUiBootstrap,
 	IOnPluginUiDestroy,
+	PluginUiDefinition,
 	PLUGIN_DEFINITION
 } from '@gauzy/plugin-ui';
 import { PermissionsEnum } from '@gauzy/contracts';
@@ -65,7 +66,9 @@ export class JobSearchModule implements IOnPluginUiBootstrap, IOnPluginUiDestroy
 	private readonly _integrationEntitySettingServiceStoreService = inject(IntegrationEntitySettingServiceStoreService);
 	private readonly _navMenuBuilderService = inject(NavMenuBuilderService);
 	private readonly _pageRouteRegistryService = inject(PageRouteRegistryService);
-	private readonly _pluginDefinition = inject(PLUGIN_DEFINITION, { optional: true });
+	private readonly _pluginDefinition = inject(PLUGIN_DEFINITION as unknown as any, { optional: true }) as
+		| PluginUiDefinition
+		| null;
 	private readonly _destroy$ = new Subject<void>();
 
 	constructor() {}
