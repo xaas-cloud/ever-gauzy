@@ -16,9 +16,9 @@ import { isFeatureEnabled } from './environment.helper';
  * If any of these are detected at startup, the server will refuse to start.
  */
 const INSECURE_DEFAULT_SECRETS = new Set([
-	'secretkey',
-	'refreshsecretkey',
-	'verificationsecretkey',
+	'secretkey', // cspell:ignore secretkey
+	'refreshsecretkey', // cspell:ignore refreshsecretkey
+	'verificationsecretkey', // cspell:ignore verificationsecretkey
 	'changeme', // cspell:ignore changeme
 	'secret',
 	'password',
