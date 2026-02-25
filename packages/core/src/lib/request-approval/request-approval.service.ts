@@ -118,7 +118,7 @@ export class RequestApprovalService extends TenantAwareCrudService<RequestApprov
 		const tenantId = RequestContext.currentTenantId();
 
 		const { organizationId } = findInput;
-		const result = await this.typeOrmRepository.find({
+		const result = await this.find({
 			where: {
 				createdByUserId: currentUserId,
 				organizationId,
@@ -137,7 +137,7 @@ export class RequestApprovalService extends TenantAwareCrudService<RequestApprov
 		}
 
 		for (const request of requestApproval) {
-			const approval = await this.typeOrmRepository.findOne({
+			const approval = await this.findOneByOptions({
 				where: {
 					id: request.requestApprovalId
 				},
