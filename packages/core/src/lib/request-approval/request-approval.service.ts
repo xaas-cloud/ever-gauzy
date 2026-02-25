@@ -17,6 +17,7 @@ import { prepareSQLQuery as p } from './../database/database.helper';
 import { RequestContext } from '../core/context';
 import { RequestApprovalEmployee, RequestApprovalTeam } from './../core/entities/internal';
 import { TenantAwareCrudService } from './../core/crud';
+import { MultiORMEnum } from './../core/utils';
 import { RequestApproval } from './request-approval.entity';
 import { MikroOrmRequestApprovalRepository } from './repository/mikro-orm-request-approval.repository';
 import { TypeOrmRequestApprovalRepository } from './repository/type-orm-request-approval.repository';
@@ -38,74 +39,95 @@ export class RequestApprovalService extends TenantAwareCrudService<RequestApprov
 		filter: FindManyOptions<RequestApproval>,
 		findInput: IRequestApprovalFindInput
 	): Promise<IPagination<IRequestApproval>> {
-		const query = this.typeOrmRepository.createQueryBuilder('request_approval');
-		query.leftJoinAndSelect(`${query.alias}.approvalPolicy`, 'approvalPolicy');
-
-		const timeOffRequestCheckIdQuery = `${
-			isSqlite() || isBetterSqlite3()
-				? '"time_off_request"."id" = "request_approval"."requestId"'
-				: isPostgres()
-				? '"time_off_request"."id"::"varchar" = "request_approval"."requestId"'
-				: isMySQL()
-				? p(
-						`CAST("time_off_request"."id" AS CHAR) COLLATE utf8mb4_unicode_ci = "request_approval"."requestId" COLLATE utf8mb4_unicode_ci`
-				  )
-				: '"time_off_request"."id" = "request_approval"."requestId"'
-		}`;
-		const equipmentSharingCheckIdQuery = `${
-			isSqlite() || isBetterSqlite3()
-				? '"equipment_sharing"."id" = "request_approval"."requestId"'
-				: isPostgres()
-				? '"equipment_sharing"."id"::"varchar" = "request_approval"."requestId"'
-				: isMySQL()
-				? p(
-						`CAST(CONVERT("time_off_request"."id" USING utf8mb4) AS CHAR) = CAST(CONVERT("request_approval"."requestId" USING utf8mb4) AS CHAR)`
-				  )
-				: '"equipment_sharing"."id" = "request_approval"."requestId"'
-		}`;
-
-		query.leftJoinAndSelect('time_off_request', 'time_off_request', timeOffRequestCheckIdQuery);
-		query.leftJoinAndSelect('equipment_sharing', 'equipment_sharing', equipmentSharingCheckIdQuery);
-
-		const relations = filter.relations as string[];
-		if (relations && relations.length > 0) {
-			query.setFindOptions({ relations });
-		}
-
 		const tenantId = RequestContext.currentTenantId();
 		const { organizationId } = findInput;
 
-		const [items, total] = await query
-			.where(
-				new Brackets((sqb) => {
-					sqb.where(p('approvalPolicy.organizationId =:organizationId'), {
-						organizationId
-					}).andWhere(p('approvalPolicy.tenantId =:tenantId'), {
-						tenantId
-					});
-				})
-			)
-			.orWhere(
-				new Brackets((sqb) => {
-					sqb.where(p('time_off_request.organizationId =:organizationId'), {
-						organizationId
-					}).andWhere(p('time_off_request.tenantId =:tenantId'), {
-						tenantId
-					});
-				})
-			)
-			.orWhere(
-				new Brackets((sqb) => {
-					sqb.where(p('equipment_sharing.organizationId =:organizationId'), {
-						organizationId
-					}).andWhere(p('equipment_sharing.tenantId =:tenantId'), {
-						tenantId
-					});
-				})
-			)
-			.getManyAndCount();
+		switch (this.ormType) {
+			case MultiORMEnum.MikroORM: {
+				// MikroORM: Use findAndCount with simplified filtering
+				const mikroWhere: any = {
+					$or: [
+						{ approvalPolicy: { organizationId, tenantId } }
+						// TODO: Cross-table join to time_off_request and equipment_sharing
+						// requires MikroORM QueryBuilder with custom joins
+					]
+				};
 
-		return { items, total };
+				const relations = filter.relations as string[];
+				const [items, total] = await this.mikroOrmRepository.findAndCount(mikroWhere, {
+					...(relations && relations.length > 0 ? { populate: relations as any[] } : {})
+				});
+				return { items: items.map((e) => this.serialize(e)) as IRequestApproval[], total };
+			}
+			case MultiORMEnum.TypeORM:
+			default: {
+				const query = this.typeOrmRepository.createQueryBuilder('request_approval');
+				query.leftJoinAndSelect(`${query.alias}.approvalPolicy`, 'approvalPolicy');
+
+				const timeOffRequestCheckIdQuery = `${
+					isSqlite() || isBetterSqlite3()
+						? '"time_off_request"."id" = "request_approval"."requestId"'
+						: isPostgres()
+						? '"time_off_request"."id"::"varchar" = "request_approval"."requestId"'
+						: isMySQL()
+						? p(
+								`CAST("time_off_request"."id" AS CHAR) COLLATE utf8mb4_unicode_ci = "request_approval"."requestId" COLLATE utf8mb4_unicode_ci`
+						  )
+						: '"time_off_request"."id" = "request_approval"."requestId"'
+				}`;
+				const equipmentSharingCheckIdQuery = `${
+					isSqlite() || isBetterSqlite3()
+						? '"equipment_sharing"."id" = "request_approval"."requestId"'
+						: isPostgres()
+						? '"equipment_sharing"."id"::"varchar" = "request_approval"."requestId"'
+						: isMySQL()
+						? p(
+								`CAST(CONVERT("time_off_request"."id" USING utf8mb4) AS CHAR) = CAST(CONVERT("request_approval"."requestId" USING utf8mb4) AS CHAR)`
+						  )
+						: '"equipment_sharing"."id" = "request_approval"."requestId"'
+				}`;
+
+				query.leftJoinAndSelect('time_off_request', 'time_off_request', timeOffRequestCheckIdQuery);
+				query.leftJoinAndSelect('equipment_sharing', 'equipment_sharing', equipmentSharingCheckIdQuery);
+
+				const relations = filter.relations as string[];
+				if (relations && relations.length > 0) {
+					query.setFindOptions({ relations });
+				}
+
+				const [items, total] = await query
+					.where(
+						new Brackets((sqb) => {
+							sqb.where(p('approvalPolicy.organizationId =:organizationId'), {
+								organizationId
+							}).andWhere(p('approvalPolicy.tenantId =:tenantId'), {
+								tenantId
+							});
+						})
+					)
+					.orWhere(
+						new Brackets((sqb) => {
+							sqb.where(p('time_off_request.organizationId =:organizationId'), {
+								organizationId
+							}).andWhere(p('time_off_request.tenantId =:tenantId'), {
+								tenantId
+							});
+						})
+					)
+					.orWhere(
+						new Brackets((sqb) => {
+							sqb.where(p('equipment_sharing.organizationId =:organizationId'), {
+								organizationId
+							}).andWhere(p('equipment_sharing.tenantId =:tenantId'), {
+								tenantId
+							});
+						})
+					)
+					.getManyAndCount();
+
+				return { items, total };
+			}
+		}
 	}
 
 	async findRequestApprovalsByEmployeeId(
@@ -218,19 +240,32 @@ export class RequestApprovalService extends TenantAwareCrudService<RequestApprov
 		requestApproval.organizationId = entity.organizationId;
 		requestApproval.tenantId = tenantId;
 
-		await this.typeOrmRepository
-			.createQueryBuilder()
-			.delete()
-			.from(RequestApprovalEmployee)
-			.where(p('requestApprovalId = :id'), { id: id })
-			.execute();
+		switch (this.ormType) {
+			case MultiORMEnum.MikroORM: {
+				// MikroORM: Use nativeDelete on the entity manager
+				const em = this.mikroOrmRepository.getEntityManager();
+				await em.nativeDelete(RequestApprovalEmployee, { requestApprovalId: id } as any);
+				await em.nativeDelete(RequestApprovalTeam, { requestApprovalId: id } as any);
+				break;
+			}
+			case MultiORMEnum.TypeORM:
+			default: {
+				await this.typeOrmRepository
+					.createQueryBuilder()
+					.delete()
+					.from(RequestApprovalEmployee)
+					.where(p('requestApprovalId = :id'), { id: id })
+					.execute();
 
-		await this.typeOrmRepository
-			.createQueryBuilder()
-			.delete()
-			.from(RequestApprovalTeam)
-			.where(p('requestApprovalId = :id'), { id: id })
-			.execute();
+				await this.typeOrmRepository
+					.createQueryBuilder()
+					.delete()
+					.from(RequestApprovalTeam)
+					.where(p('requestApprovalId = :id'), { id: id })
+					.execute();
+				break;
+			}
+		}
 
 		if (entity.employeeApprovals) {
 			const employees: IEmployee[] = await this.typeOrmEmployeeRepository.find({
