@@ -61,7 +61,22 @@ export class CandidateService extends TenantAwareCrudService<Candidate> {
 						if (isNotEmpty(where.tags)) {
 							mikroWhere.tags = { id: { $in: where.tags } };
 						}
-						// TODO: User name/email search needs MikroORM relation filtering via user.firstName/lastName/email
+						if (isNotEmpty(where.user)) {
+							const userFilter: any[] = [];
+							if (isNotEmpty(where.user.name)) {
+								const keywords: string[] = where.user.name.split(' ');
+								for (const keyword of keywords) {
+									userFilter.push({ user: { firstName: { $like: `%${keyword}%` } } });
+									userFilter.push({ user: { lastName: { $like: `%${keyword}%` } } });
+								}
+							}
+							if (isNotEmpty(where.user.email)) {
+								userFilter.push({ user: { email: { $like: `%${where.user.email}%` } } });
+							}
+							if (userFilter.length > 0) {
+								mikroWhere.$or = userFilter;
+							}
+						}
 					}
 
 					const [items, total] = await this.mikroOrmRepository.findAndCount(mikroWhere, {
