@@ -302,28 +302,56 @@ export class TaskService extends TenantAwareCrudService<Task> {
 	 * @returns A Promise that resolves to the epic task if found, otherwise null.
 	 */
 	async findParentUntilEpic(issueId: ID): Promise<Task | null> {
-		// Define the recursive SQL query to find the parent epic
-		const query = p(`
-			WITH RECURSIVE IssueHierarchy AS (
-				SELECT *
-				FROM task
-				WHERE id = $1
-			UNION ALL
-				SELECT i.*
-				FROM task i
-				INNER JOIN IssueHierarchy ih ON i.id = ih."parentId"
-			)
-			SELECT *
-			FROM IssueHierarchy
-			WHERE "issueType" = 'Epic'
-			LIMIT 1;
-		`);
+		switch (this.ormType) {
+			case MultiORMEnum.MikroORM: {
+				const knex = this.mikroOrmRepository.getKnex();
+				const result = await knex.raw(
+					p(`
+					WITH RECURSIVE IssueHierarchy AS (
+						SELECT *
+						FROM task
+						WHERE id = ?
+					UNION ALL
+						SELECT i.*
+						FROM task i
+						INNER JOIN IssueHierarchy ih ON i.id = ih."parentId"
+					)
+					SELECT *
+					FROM IssueHierarchy
+					WHERE "issueType" = 'Epic'
+					LIMIT 1;
+				`),
+					[issueId]
+				);
+				const items = result.rows || result;
+				return items.length > 0 ? items[0] : null;
+			}
+			case MultiORMEnum.TypeORM:
+			default: {
+				// Define the recursive SQL query to find the parent epic
+				const query = p(`
+					WITH RECURSIVE IssueHierarchy AS (
+						SELECT *
+						FROM task
+						WHERE id = $1
+					UNION ALL
+						SELECT i.*
+						FROM task i
+						INNER JOIN IssueHierarchy ih ON i.id = ih."parentId"
+					)
+					SELECT *
+					FROM IssueHierarchy
+					WHERE "issueType" = 'Epic'
+					LIMIT 1;
+				`);
 
-		// Execute the raw SQL query with the issueId parameter
-		const result = await this.typeOrmRepository.query(query, [issueId]);
+				// Execute the raw SQL query with the issueId parameter
+				const result = await this.typeOrmRepository.query(query, [issueId]);
 
-		// Return the first epic task found or null if no epic is found
-		return result.length > 0 ? result[0] : null;
+				// Return the first epic task found or null if no epic is found
+				return result.length > 0 ? result[0] : null;
+			}
+		}
 	}
 
 	/**
@@ -369,15 +397,14 @@ export class TaskService extends TenantAwareCrudService<Task> {
 						mikroWhere.organizationSprintId = null;
 					}
 
-					// TODO: Junction-table-based employee membership filtering via task_employee
-					// needs MikroORM QueryBuilder with subquery support
 					const employeeId = RequestContext.hasPermission(PermissionsEnum.CHANGE_SELECTED_EMPLOYEE)
 						? isNotEmpty(members) && isNotEmpty(members['id'])
 							? members['id']
 							: null
 						: RequestContext.currentEmployeeId();
+
 					if (isNotEmpty(employeeId)) {
-						mikroWhere.members = { id: employeeId };
+						mikroWhere.$or = [{ members: { id: employeeId } }, { teams: { members: { employeeId } } }];
 					}
 
 					const [items, total] = await this.mikroOrmRepository.findAndCount(mikroWhere, {
@@ -641,6 +668,9 @@ export class TaskService extends TenantAwareCrudService<Task> {
 					}
 					if (isNotEmpty(teams)) {
 						mikroWhere.teams = { id: { $in: teams as ID[] } };
+					}
+					if (isNotEmpty(members) && isNotEmpty(members['id'])) {
+						mikroWhere.teams = { ...mikroWhere.teams, members: { employeeId: members['id'] } };
 					}
 
 					const [items, total] = await this.mikroOrmRepository.findAndCount(mikroWhere, {

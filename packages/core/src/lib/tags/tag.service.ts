@@ -100,11 +100,11 @@ export class TagService extends TenantAwareCrudService<Tag> {
 					});
 
 					const store = new FileStorage().setProvider(FileStorageProviderEnum.LOCAL);
-					const serialized = items.map((item: any) => {
+					const serialized = await Promise.all(items.map(async (item: any) => {
 						const s = this.serialize(item);
-						if (s.icon) s.fullIconUrl = store.getProviderInstance().url(s.icon);
+						if (s.icon) s.fullIconUrl = await store.getProviderInstance().url(s.icon);
 						return s;
-					});
+					}));
 					return { items: serialized as ITag[], total };
 				}
 				case MultiORMEnum.TypeORM:
@@ -224,10 +224,10 @@ export class TagService extends TenantAwareCrudService<Tag> {
 					let items = await query.getRawMany();
 
 					const store = new FileStorage().setProvider(FileStorageProviderEnum.LOCAL);
-					items = items.map((item) => {
-						if (item.icon) item.fullIconUrl = store.getProviderInstance().url(item.icon);
+					items = await Promise.all(items.map(async (item) => {
+						if (item.icon) item.fullIconUrl = await store.getProviderInstance().url(item.icon);
 						return item;
-					});
+					}));
 					const total = items.length;
 
 					return { items, total };
