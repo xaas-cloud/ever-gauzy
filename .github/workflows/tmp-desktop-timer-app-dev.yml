@@ -1,7 +1,8 @@
 name: TMP Desktop Timer App Build Dev
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [develop]
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
