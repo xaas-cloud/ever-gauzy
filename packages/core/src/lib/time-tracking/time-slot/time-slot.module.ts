@@ -11,7 +11,6 @@ import { TimeLogModule } from './../time-log/time-log.module';
 import { EmployeeModule } from './../../employee/employee.module';
 import { ActivityModule } from './../activity/activity.module';
 import { TypeOrmTimeSlotRepository } from './repository/type-orm-time-slot.repository';
-import { MikroOrmTimeSlotRepository } from './repository/mikro-orm-time-slot.repository';
 import { TimeSlotMinute } from './time-slot-minute/time-slot-minute.entity';
 import { TypeOrmTimeSlotMinuteRepository } from './time-slot-minute/repositories/type-orm-time-slot-minute.repository';
 import { MikroOrmTimeSlotRepository } from './repository/mikro-orm-time-slot.repository';

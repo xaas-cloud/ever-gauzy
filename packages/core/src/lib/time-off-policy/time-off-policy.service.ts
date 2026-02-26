@@ -43,7 +43,7 @@ export class TimeOffPolicyService extends TenantAwareCrudService<TimeOffPolicy> 
 			switch (this.ormType) {
 				case MultiORMEnum.MikroORM:
 					employees = await this.mikroOrmEmployeeRepository.find(
-						{ id: { $in: entity.employees as string[] }, tenantId, organizationId } as any,
+						{ id: { $in: entity.employees as unknown as string[] }, tenantId, organizationId } as any,
 						{ populate: ['user'] }
 					);
 					break;
@@ -94,7 +94,7 @@ export class TimeOffPolicyService extends TenantAwareCrudService<TimeOffPolicy> 
 			switch (this.ormType) {
 				case MultiORMEnum.MikroORM:
 					employees = await this.mikroOrmEmployeeRepository.find(
-						{ id: { $in: entity.employees as string[] }, tenantId, organizationId } as any,
+						{ id: { $in: entity.employees as unknown as string[] }, tenantId, organizationId } as any,
 						{ populate: ['user'] }
 					);
 					break;

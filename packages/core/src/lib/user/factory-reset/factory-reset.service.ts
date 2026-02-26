@@ -532,7 +532,7 @@ export class FactoryResetService {
 		@InjectRepository(Organization)
 		private typeOrmOrganizationRepository: TypeOrmOrganizationRepository,
 
-		mikroOrmOrganizationRepository: MikroOrmOrganizationRepository,
+		private mikroOrmOrganizationRepository: MikroOrmOrganizationRepository,
 
 		@InjectRepository(OrganizationContact)
 		private typeOrmOrganizationContactRepository: TypeOrmOrganizationContactRepository,
@@ -697,12 +697,12 @@ export class FactoryResetService {
 		@InjectRepository(User)
 		private typeOrmUserRepository: TypeOrmUserRepository,
 
-		mikroOrmUserRepository: MikroOrmUserRepository,
+		private mikroOrmUserRepository: MikroOrmUserRepository,
 
 		@InjectRepository(UserOrganization)
 		private typeOrmUserOrganizationRepository: TypeOrmUserOrganizationRepository,
 
-		mikroOrmUserOrganizationRepository: MikroOrmUserOrganizationRepository,
+		private mikroOrmUserOrganizationRepository: MikroOrmUserOrganizationRepository,
 
 		private configService: ConfigService
 	) {}
