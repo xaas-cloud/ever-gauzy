@@ -14,6 +14,8 @@ import { TypeOrmTimeSlotRepository } from './repository/type-orm-time-slot.repos
 import { MikroOrmTimeSlotRepository } from './repository/mikro-orm-time-slot.repository';
 import { TimeSlotMinute } from './time-slot-minute/time-slot-minute.entity';
 import { TypeOrmTimeSlotMinuteRepository } from './time-slot-minute/repositories/type-orm-time-slot-minute.repository';
+import { MikroOrmTimeSlotRepository } from './repository/mikro-orm-time-slot.repository';
+import { MikroOrmTimeSlotMinuteRepository } from './time-slot-minute/repositories/mikro-orm-time-slot-minute.repository';
 
 @Module({
 	controllers: [TimeSlotController],
@@ -26,7 +28,7 @@ import { TypeOrmTimeSlotMinuteRepository } from './time-slot-minute/repositories
 		forwardRef(() => ActivityModule),
 		CqrsModule
 	],
-	providers: [TimeSlotService, TypeOrmTimeSlotRepository, MikroOrmTimeSlotRepository, TypeOrmTimeSlotMinuteRepository, ...CommandHandlers],
-	exports: [TimeSlotService, TypeOrmTimeSlotRepository, MikroOrmTimeSlotRepository, TypeOrmTimeSlotMinuteRepository]
+	providers: [TimeSlotService, TypeOrmTimeSlotRepository, MikroOrmTimeSlotRepository, TypeOrmTimeSlotMinuteRepository, MikroOrmTimeSlotMinuteRepository, ...CommandHandlers],
+	exports: [TimeSlotService, TypeOrmTimeSlotRepository, MikroOrmTimeSlotRepository, TypeOrmTimeSlotMinuteRepository, MikroOrmTimeSlotMinuteRepository]
 })
 export class TimeSlotModule {}
