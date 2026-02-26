@@ -434,11 +434,13 @@ jobs:
           # Patch graceful-fs to retry EMFILE errors with backoff
           node -e "try { var gfs = require('graceful-fs'); gfs.gracefulify(require('fs')); console.log('graceful-fs patched'); } catch(e) { console.log('graceful-fs not available, skipping'); }"
 
+      - name: Reset NX
+        shell: powershell
+        run: npx nx reset
+
       - name: Build Desktop Timer App
         shell: cmd
-        run: |
-          npx nx reset
-          yarn build:desktop-timer:windows:release:gh:x64
+        run: 'yarn build:desktop-timer:windows:release:gh:x64'
         env:
           USE_HARD_LINKS: false
           ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
