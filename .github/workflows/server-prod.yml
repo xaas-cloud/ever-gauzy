@@ -3,7 +3,8 @@ name: Server Build Prod
 on:
   workflow_run:
     workflows: ['Release Prod']
-    branches: [master]
+    branches:
+      - master
     types:
       - completed
 

@@ -2,7 +2,8 @@ name: '[Test] Desktop Timer Windows x64'
 
 on:
   push:
-    branches: [develop]
+    branches:
+      - develop
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -78,20 +79,20 @@ jobs:
       - name: Run Postinstall Manually
         run: 'yarn postinstall.manual'
 
-      - name: Bump version
+      - name: Bump version desktop timer app
         uses: actions/github-script@v7
         with:
           script: |
             const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.desktoptimer(false))
+            console.log(script.desktopTimer(false))
         env:
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           DESKTOP_TIMER_APP_NAME: 'gauzy-desktop-timer'
+          DESKTOP_TIMER_APP_REPO_NAME: 'ever-gauzy-desktop-timer'
+          DESKTOP_TIMER_APP_REPO_OWNER: 'ever-co'
+          COMPANY_SITE_LINK: 'https://gauzy.co'
           DESKTOP_TIMER_APP_DESCRIPTION: 'Gauzy Desktop Timer'
           DESKTOP_TIMER_APP_ID: 'com.ever.gauzydesktoptimer'
-          DESKTOP_TIMER_REPO_NAME: 'ever-gauzy-desktop-timer'
-          DESKTOP_TIMER_REPO_OWNER: 'ever-co'
-          COMPANY_SITE_LINK: 'https://gauzy.co'
 
       - name: Fix Node.js PATH for child processes
         shell: powershell

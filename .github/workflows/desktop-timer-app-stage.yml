@@ -3,7 +3,9 @@ name: Desktop Timer App Build Stage
 on:
   workflow_run:
     workflows: ['Release Apps Stage']
-    branches: [stage-apps, temp]
+    branches:
+      - stage-apps
+      - temp
     types:
       - completed
 
