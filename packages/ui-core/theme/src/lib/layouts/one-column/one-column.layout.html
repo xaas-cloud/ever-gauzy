@@ -8,9 +8,7 @@
 		<div class="custom-box">
 			<div class="custom-row logo">
 				<div
-					class="logo-container"
-					[class.not-collapsed]="isExpanded && !isCollapse"
-					[class.compacted]="!isExpanded"
+					[ngClass]="isExpanded? isCollapse? 'logo-container':'logo-container not-collapsed' : 'logo-container compacted'"
 				>
 					<ngx-gauzy-logo
 						[controlled]="trigger"
@@ -27,24 +25,14 @@
 			<div class="custom-row menu">
 				<ng-content select="ga-main-nav-menu"></ng-content>
 			</div>
-			<div
-				[class.toggle-layout]="isExpanded"
-				[class.row]="isExpanded"
-				[class.toggle-layout]="!(isExpanded)"
-				[class.column]="!(isExpanded)"
-			>
+			<div [ngClass]="isExpanded ? 'toggle-layout row' : 'toggle-layout column'">
 				<div class="custom-row user">
 					<gauzy-user [user$]="user$" (click)="isOpen = !isOpen"></gauzy-user>
 				</div>
 				<div class="custom-row button">
-					<div [class.chevron]="isExpanded" [class.chevron]="!(isExpanded)" [class.collapsed]="!(isExpanded)">
+					<div [ngClass]="isExpanded ? 'chevron' : 'chevron collapsed'">
 						<button (click)="toggle()" nbButton outline size="small">
-							<i
-								[class.fas]="isExpanded"
-								[class.fa-angle-double-left]="isExpanded"
-								[class.fas]="!(isExpanded)"
-								[class.fa-angle-double-right]="!(isExpanded)"
-							></i>
+							<i [ngClass]="isExpanded ? 'fas fa-angle-double-left' : 'fas fa-angle-double-right'"></i>
 						</button>
 					</div>
 				</div>
