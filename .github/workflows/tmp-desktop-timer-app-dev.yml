@@ -1,11 +1,7 @@
-name: Desktop Timer App Build Prod
+name: TMP Desktop Timer App Build Dev
 
 on:
-  workflow_run:
-    workflows: ['Release Prod']
-    branches: [master]
-    types:
-      - completed
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -74,7 +70,7 @@ jobs:
         with:
           script: |
             const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.desktopTimer(true))
+            console.log(script.desktopTimer(false))
         env:
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           DESKTOP_TIMER_APP_NAME: 'gauzy-desktop-timer'
@@ -175,7 +171,7 @@ jobs:
         with:
           script: |
             const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.desktopTimer(true))
+            console.log(script.desktopTimer(false))
         env:
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           DESKTOP_TIMER_APP_NAME: 'gauzy-desktop-timer'
@@ -263,7 +259,7 @@ jobs:
         with:
           script: |
             const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.desktopTimer(true))
+            console.log(script.desktopTimer(false))
         env:
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           DESKTOP_TIMER_APP_NAME: 'gauzy-desktop-timer'
@@ -382,7 +378,7 @@ jobs:
         with:
           script: |
             const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.desktopTimer(true))
+            console.log(script.desktopTimer(false))
         env:
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           DESKTOP_TIMER_APP_NAME: 'gauzy-desktop-timer'
@@ -434,11 +430,11 @@ jobs:
           # Patch graceful-fs to retry EMFILE errors with backoff
           node -e "try { var gfs = require('graceful-fs'); gfs.gracefulify(require('fs')); console.log('graceful-fs patched'); } catch(e) { console.log('graceful-fs not available, skipping'); }"
 
-      - name: Build Desktop Timer App
+      - name: Build Desktop 
         shell: cmd
         run: |
           npx nx reset
-          yarn build:desktop-timer:windows:release:gh:x64
+          yarn build:
         env:
           USE_HARD_LINKS: false
           ELECTRON_BUILDER_CACHE: ${{ github.workspace }}\.cache\electron-builder
@@ -547,7 +543,7 @@ jobs:
         with:
           script: |
             const script = require('./.scripts/bump-version-electron.js')
-            console.log(script.desktopTimer(true))
+            console.log(script.desktopTimer(false))
         env:
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           DESKTOP_TIMER_APP_NAME: 'gauzy-desktop-timer'
