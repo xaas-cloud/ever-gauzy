@@ -161,6 +161,7 @@ jobs:
           DO_KEY_ID: ${{ secrets.DO_KEY_ID }}
           DO_SECRET_KEY: ${{ secrets.DO_SECRET_KEY }}
           NX_NO_CLOUD: true
+          NX_PLUGIN_NO_TIMEOUTS: true
           NX_DAEMON: false
           PROJECT_REPO: 'https://github.com/ever-co/ever-gauzy.git'
           # Demo electron releases go to the same repo
