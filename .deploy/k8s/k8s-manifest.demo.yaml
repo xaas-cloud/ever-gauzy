@@ -98,10 +98,8 @@ spec:
                 - name: gauzy-demo-api
                   securityContext:
                       allowPrivilegeEscalation: false
-                      readOnlyRootFilesystem: true
-                      runAsNonRoot: true
-                      capabilities:
-                          drop: ['ALL']
+                      readOnlyRootFilesystem: false
+                      runAsNonRoot: false
                   image: registry.digitalocean.com/ever/gauzy-api-demo:latest
                   env:
                       - name: API_HOST
@@ -174,10 +172,8 @@ spec:
                 - name: gauzy-demo-webapp
                   securityContext:
                       allowPrivilegeEscalation: false
-                      readOnlyRootFilesystem: true
-                      runAsNonRoot: true
-                      capabilities:
-                          drop: ['ALL']
+                      readOnlyRootFilesystem: false
+                      runAsNonRoot: false
                   image: registry.digitalocean.com/ever/gauzy-webapp-demo:latest
                   env:
                       - name: DEMO
