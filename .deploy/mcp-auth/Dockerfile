@@ -115,11 +115,18 @@ RUN apk add --no-cache python3 python3-dev py3-pip py3-setuptools build-base gcc
     && npm install yarn -g --force \
     && npm install --quiet ts-node@10.9.2 -g
 
+# Create working directory with correct ownership so node user can create symlinks
+RUN mkdir -p /srv/gauzy-mcp-auth && chown node:node /srv/gauzy-mcp-auth
+
 USER node:node
 
 WORKDIR /srv/gauzy-mcp-auth
 
 COPY --chown=node:node --from=build /srv/gauzy-mcp-auth/dist .
+
+# Create dist -> . symlink so ../../../dist/ paths in package.json resolve correctly in Docker
+RUN ln -s . dist
+
 COPY --chown=node:node lerna.json package.json yarn.lock ./
 COPY --chown=node:node .scripts/postinstall.js ./.scripts/
 
