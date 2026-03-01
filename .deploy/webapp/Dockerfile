@@ -63,7 +63,7 @@ ARG EXTENSION_DOWNLOAD_LINK
 ARG NX_CLOUD_ACCESS_TOKEN
 ARG NX_BRANCH
 
-FROM node:24.12.0-alpine3.23 AS dependencies
+FROM node:24.14.0-alpine3.23 AS dependencies
 
 LABEL maintainer="ever@ever.co"
 LABEL org.opencontainers.image.source="https://github.com/ever-co/ever-gauzy"
@@ -102,6 +102,7 @@ COPY --chown=node:node packages/contracts/package.json ./packages/contracts/
 COPY --chown=node:node packages/auth/package.json ./packages/auth/
 COPY --chown=node:node packages/core/package.json ./packages/core/
 COPY --chown=node:node packages/plugin/package.json ./packages/plugin/
+COPY --chown=node:node packages/plugin-ui/package.json ./packages/plugin-ui/
 COPY --chown=node:node packages/desktop-ui-lib/package.json ./packages/desktop-ui-lib/
 COPY --chown=node:node packages/plugins/integration-ai-ui/package.json ./packages/plugins/integration-ai-ui/
 COPY --chown=node:node packages/plugins/integration-ai/package.json ./packages/plugins/integration-ai/
@@ -129,6 +130,7 @@ COPY --chown=node:node packages/plugins/job-employee-ui/package.json ./packages/
 COPY --chown=node:node packages/plugins/job-matching-ui/package.json ./packages/plugins/job-matching-ui/
 COPY --chown=node:node packages/plugins/job-proposal-ui/package.json ./packages/plugins/job-proposal-ui/
 COPY --chown=node:node packages/plugins/job-search-ui/package.json ./packages/plugins/job-search-ui/
+COPY --chown=node:node packages/plugins/jobs-ui/package.json ./packages/plugins/jobs-ui/
 COPY --chown=node:node packages/plugins/legal-ui/package.json ./packages/plugins/legal-ui/
 COPY --chown=node:node packages/plugins/maintenance-ui/package.json ./packages/plugins/maintenance-ui/
 COPY --chown=node:node packages/plugins/onboarding-ui/package.json ./packages/plugins/onboarding-ui/
@@ -154,7 +156,7 @@ RUN yarn install --network-timeout 1000000 --frozen-lockfile --ignore-scripts
 RUN yarn postinstall.manual
 RUN yarn cache clean
 
-FROM node:24.12.0-alpine3.23 AS development
+FROM node:24.14.0-alpine3.23 AS development
 
 USER node:node
 
@@ -164,7 +166,7 @@ COPY --chown=node:node --from=dependencies /wait /entrypoint.compose.sh /entrypo
 COPY --chown=node:node --from=dependencies /srv/gauzy .
 COPY . .
 
-FROM node:24.12.0-alpine3.23 AS build
+FROM node:24.14.0-alpine3.23 AS build
 
 WORKDIR /srv/gauzy
 

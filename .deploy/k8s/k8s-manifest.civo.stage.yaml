@@ -39,8 +39,15 @@ spec:
             labels:
                 app: gauzy-stage-api
         spec:
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault
             containers:
                 - name: gauzy-stage-api
+                  securityContext:
+                      allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: false
+                      runAsNonRoot: false
                   image: ghcr.io/ever-co/gauzy-api-stage:latest
                   env:
                       - name: API_HOST
@@ -147,6 +154,8 @@ spec:
                         value: '$JWT_REFRESH_TOKEN_SECRET'
                       - name: JWT_REFRESH_TOKEN_EXPIRATION_TIME
                         value: '$JWT_REFRESH_TOKEN_EXPIRATION_TIME'
+                      - name: ALLOWED_ORIGINS
+                        value: '$ALLOWED_ORIGINS'
                       - name: CLOUDINARY_API_KEY
                         value: '$CLOUDINARY_API_KEY'
                       - name: CLOUDINARY_API_SECRET
@@ -274,8 +283,15 @@ spec:
             labels:
                 app: gauzy-stage-webapp
         spec:
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault
             containers:
                 - name: gauzy-stage-webapp
+                  securityContext:
+                      allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: false
+                      runAsNonRoot: false
                   image: ghcr.io/ever-co/gauzy-webapp-stage:latest
                   env:
                       - name: DEMO
